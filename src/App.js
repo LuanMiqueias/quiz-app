@@ -1,12 +1,9 @@
 import React from 'react'
-import './app.css';
-import Landing from './pages/landingPage/landing';
+import Routes from './pages/Routes'
 
 function App() {
   return (
-    <div className="app">
-      <Landing/>
-    </div>
+    <Routes/>
   );
 }
 
