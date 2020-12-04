@@ -1,0 +1,50 @@
+/* header{
+    box-shadow: 0 0 4px #000;
+} */
+
+header .container-right a{
+    font-family: poppins;
+    color:#909090;
+    cursor: not-allowed;
+}
+header .container-right{
+    display: flex;
+    align-items: center;
+}
+
+.container-right form{
+    margin:0 64px;
+    position: relative;
+    display: flex;
+}
+.container-right form input{
+    width: 300px;
+    height: 35px;
+    border:1px solid #bbb;
+    border-radius: 5px 0px 0px 5px;
+    outline: none;
+    padding: 0px 15px;
+    transition: all 0.1s;
+}
+.container-right form input:focus{
+    width: 400px;
+}
+.container-right form button{
+    width: 60px;
+    height: 35px;
+    border:1px solid #bbb;
+    border-radius: 5px;
+    border-radius: 0px 5px 5px 0px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #303030;
+    border: none;
+    cursor: pointer;
+    outline: none;
+    transition: all 0.1s;
+}
+
+.container-right form button:hover{
+    opacity: 0.8;
+}
