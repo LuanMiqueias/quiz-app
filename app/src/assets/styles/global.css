@@ -1,0 +1,23 @@
+*{
+    padding:0;
+    margin:0;
+    box-sizing: border-box;
+    font-family: poppins;
+    font-size: 0.95rem;
+}
+
+a{
+    text-decoration: none;
+    color:rgb(51, 135, 190)
+}
+.content{
+    padding:0 30px;
+    max-width: 1300px;
+    margin: 0 auto;
+}
+
+@media (max-width:400px){
+    .content{
+        padding:0 20px;
+    }
+}
