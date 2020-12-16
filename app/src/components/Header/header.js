@@ -7,7 +7,7 @@ function Header({children}){
     return(
        <header>
          <div className="content">
-            <Link to="/"><img src={logo} alt="Logo" title="logo"/></Link>
+            <Link to="/" className="logo"><img src={logo} alt="Logo" title="logo" height="40px"/></Link>
             {children}
          </div>
       </header>
