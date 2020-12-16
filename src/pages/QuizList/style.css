@@ -1,4 +1,4 @@
-header{
+.quizList > header{
     background: #fff;
     box-shadow: 0 0 4px #000;
     position: fixed;
@@ -8,13 +8,17 @@ header{
 .quizList{
     margin-top: 80px;
 }
-.quizList header{
+.quizList > header{
     box-shadow: 0px 0px 2px rgba(0,0,0, 0.2);
 }
 .quizList header .container-right a{
     font-family: poppins;
-    color:#909090;
     cursor: not-allowed;
+    padding: 7px 20px;
+    text-align: center;
+    background: #9CE0E0;
+    border-radius: 20px;
+    color:#fff
 }
 .quizList header .container-right{
     display: flex;
@@ -63,7 +67,8 @@ header{
 }
 .quizList main{
     width: 100%;
-    min-height: 100vh;
+    min-height: 60vh;
+    overflow: auto;
     position: relative;
 }
 .quizList main::before{
@@ -88,15 +93,14 @@ header{
 
 }
 .quizList main > .content{
-    width: 1000px ;
-    min-height: 100vh;
+    max-width: 1000px ;
     background-color: #fff;
     margin-top:25px;
     border-radius: 5px;
     align-items: flex-start;
     flex-direction: column;
     justify-content: flex-start;
-    padding: 0px 40px;
+    padding: 0px 80px;
 }
 .quizList main > .content section{
     display: flex;
@@ -108,6 +112,51 @@ header{
     font-size: 24px;
     color:#303030;
     text-align: left;
-    margin:32px 64px 40px;
+    margin:32px 0px 40px;
     font-weight: 400;
+}
+
+@media (max-width: 764px){
+    .quizList main > .content{
+        padding: 0px 40px;
+    }
+    .quizList main > .content > h1{
+        font-size: 1.5rem;
+        margin:32px 10px 20px;
+    }
+}
+
+@media (max-width: 500px){
+    .quizList main > .content{
+        padding: 0px 10px;
+        margin-top: -10px;
+    }
+    .quizList main > .content > h1{
+        font-size: 1.2rem;
+    }
+    .quizList main::before,  .quizList main::after{
+        background: initial;
+    }
+    .container-right form{
+        margin: 0;
+        width: 100%;
+        display: flex;
+        justify-content: flex-end;
+        height: 40px;
+
+    }
+    .container-right form input{
+        width: 0;
+        opacity: 0;
+    }
+    .container-right{
+        width: 100%;
+    }
+    .container-right form button{
+        background: none;
+        display: flex;
+        justify-content: flex-end;
+        margin-right:10px
+    }
+
 }

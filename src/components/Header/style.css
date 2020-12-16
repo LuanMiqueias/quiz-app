@@ -5,8 +5,28 @@ header{
 
 header .content{
     width: 100%;
-    height: 80px;
+    min-height: 80px;
     display: flex;
     justify-content: space-between;
     align-items: center;
+}
+header .content .logo{
+    padding: 0;
+    height: 40px;
+    margin: 0 !important;
+}
+@media (max-width:400px){
+    header{
+        height: 65px;
+        padding: 0;
+    }
+    
+    header .content{
+        min-height: 65px;
+    }
+    header .content a{
+        font-size: 0.8rem;
+        white-space: nowrap;
+        margin-left: 10px;
+    }
 }
