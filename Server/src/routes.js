@@ -1,7 +1,9 @@
-import {Router} from 'express';
-import SessionController from './controllers/SessionController'
+import { Router } from "express";
+import QuizController from "./controllers/QuizController";
 const routes = new Router();
 
-routes.post('/login', SessionController.store)
+routes.get("/all", QuizController.index);
+routes.post("/new-question", QuizController.store);
+routes.delete("/delete/:id_pergunta", QuizController.delete);
 
-export default routes
+export default routes;
