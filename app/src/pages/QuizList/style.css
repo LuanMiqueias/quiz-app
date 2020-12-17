@@ -70,7 +70,10 @@
     min-height: 60vh;
     overflow: auto;
     position: relative;
+    padding-bottom: 60px;
+
 }
+
 .quizList main::before{
     content: '';
     background-color: #DFF5DE;
@@ -93,7 +96,9 @@
 
 }
 .quizList main > .content{
-    max-width: 1000px ;
+    max-width: 1000px;
+    width: 100%;
+    min-height: 80vh;
     background-color: #fff;
     margin-top:25px;
     border-radius: 5px;
@@ -101,6 +106,7 @@
     flex-direction: column;
     justify-content: flex-start;
     padding: 0px 80px;
+    padding-bottom: 60px;
 }
 .quizList main > .content section{
     display: flex;
