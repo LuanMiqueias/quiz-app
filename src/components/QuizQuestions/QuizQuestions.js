@@ -2,7 +2,6 @@ import React from "react";
 import "./style.css";
 
 function QuizQuestions({pergunta}) {
-  console.log(pergunta);
   const teste = false
   return (
     <div class="pergunta">

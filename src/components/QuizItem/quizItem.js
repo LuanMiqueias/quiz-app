@@ -4,27 +4,43 @@ import iconHeart from "../../assets/icons/IconHeart.svg";
 import iconHeartSelecionado from "../../assets/icons/IconHeart-selecionado.svg";
 import { Link } from "react-router-dom";
 
-function QuizItem({ title, description, tags, favorited, id }) {
-  const [isFavorite, SetIsFavorite] = React.useState();
+function QuizItem({ title, description, tags, id, favorite }) {
+  const [isFavorite, setIsFavorite] = React.useState(favorite);
+  const [iconFavorite, setIconFavorite] = React.useState();
 
-  React.useEffect(() => {
-    if (favorited) {
-      SetIsFavorite(() => (
-        <div className="favorited">
-          <img src={iconHeartSelecionado} alt="remover dos favoritos" />
-        </div>
-      ));
+  function SalvarFavorito(id) {
+    if (localStorage.favoritos) {
+      let listaJson = JSON.parse(localStorage.favoritos);
+
+      if (listaJson.includes(id)) {
+        const pos = listaJson.indexOf(id);
+        listaJson.splice(pos, 1);
+        localStorage.favoritos = JSON.stringify(listaJson);
+        setIsFavorite(false);
+        return;
+      }
+      listaJson = [id, ...listaJson];
+      localStorage.favoritos = JSON.stringify(listaJson);
+      setIsFavorite(true);
     } else {
-      SetIsFavorite(() => (
-        <div className="favorited">
-          <img src={iconHeart} alt="adicionar aos favoritos" />
-        </div>
-      ));
+      const listaFavoritos = [id];
+      localStorage.favoritos = JSON.stringify(listaFavoritos);
+      setIsFavorite(true);
     }
-  }, [SetIsFavorite, favorited]);
+  }
+
   return (
     <div className="container-quizItem">
-      {isFavorite}
+      <div
+        className="favorited"
+        onClick={(e) => SalvarFavorito(e.currentTarget.dataset.id)}
+        data-id={id}
+      >
+        <img
+          src={isFavorite ? iconHeartSelecionado : iconHeart}
+          alt={isFavorite ? "Adicionar aos Favoritos" : "Remover do Favoritos"}
+        />
+      </div>
       <Link to={"quiz/" + id} className="content-quizItem">
         <div>
           <h1>{title}</h1>

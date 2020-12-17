@@ -15,28 +15,34 @@ function QuizList() {
 
   React.useEffect(() => {
     setLoading(true);
-    fetch("http://localhost:3030/all")
+    fetch("http://192.168.0.105:3030/all")
       .then((responce) => responce.json())
       .then((json) => {
-        const perguntaItem = json.map(
-          ({ titulo, descricao, tags, isFavorite, _id }) => {
-            return (
-              <QuizItem
-                key={_id}
-                title={titulo}
-                description={descricao}
-                tags={tags}
-                favorited={isFavorite}
-                id={_id}
-              />
-            );
+        const perguntaItem = json.map(({ titulo, descricao, tags, _id }) => {
+          let isFavorite = false;
+          if (localStorage.favoritos) {
+            const arrayFavoritos = JSON.parse(localStorage.favoritos);
+            arrayFavoritos.forEach((item) => {
+              if (item === _id) {
+                isFavorite = true;
+              }
+            });
           }
-        );
+          return (
+            <QuizItem
+              key={_id}
+              title={titulo}
+              description={descricao}
+              tags={tags}
+              id={_id}
+              favorite={isFavorite}
+            />
+          );
+        });
         setPerguntas(perguntaItem);
         setLoading(false);
       });
   }, []);
-  console.log(loading);
   return (
     <div className="quizList">
       <Header>
