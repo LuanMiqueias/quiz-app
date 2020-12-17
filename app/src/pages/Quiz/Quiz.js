@@ -15,7 +15,7 @@ function Quiz() {
 
   const params = useParams();
   React.useEffect(() => {
-    fetch("http://localhost:3030/quiz/" + params.id)
+    fetch("http://192.168.0.105:3030/quiz/" + params.id)
       .then((responce) => responce.json())
       .then((json) => {
         console.log(json);
