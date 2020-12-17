@@ -7,7 +7,15 @@ import IconUser from '../../assets/icons/IconUser.svg'
 import QuizItem from '../../components/QuizItem/quizItem'
 
 function QuizList(){
-    
+    const [perguntas, setPerguntas] = React.useState();
+    const [loading, setLoading] = React.useState();
+    React.useEffect(()=>{
+      fetch('http://localhost:2030/all')
+      .then((responce) => responce.json)
+      .then((json) => {
+        console.log(json)
+      })
+    },[])
     return(
         <div className="quizList">
             <Header>
