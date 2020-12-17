@@ -118,8 +118,9 @@
     font-size: 24px;
     color:#303030;
     text-align: left;
-    margin:32px 0px 40px;
+    margin:60px 0px 40px;
     font-weight: 400;
+    padding-top: 44px;
 }
 
 @media (max-width: 764px){

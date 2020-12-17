@@ -3,7 +3,7 @@ import "./style.css";
 
 import { Link, useParams } from "react-router-dom";
 import Loading from "../../components/Loading/loading";
-import iconVoltar from '../../assets/icons/iconArrow-left.svg'
+import iconVoltar from "../../assets/icons/iconArrow-left.svg";
 import QuizQuestions from "../../components/QuizQuestions/QuizQuestions";
 
 // import "./style.css";
@@ -26,21 +26,30 @@ function Quiz() {
     return (
       <div className="quiz">
         <main>
-          <div className="content">
-          <Link to="/all" className="btnVoltar"><img src={iconVoltar} alt="Voltar"/></Link>
-            {!start ?
-            <>
+          {!start ? (
+            <div className="content content-preparar">
+              <Link to="/all" className="btnVoltar">
+                <img src={iconVoltar} alt="Voltar" />
+              </Link>
               <h1>{pergunta.titulo}</h1>
               <h2>Preparado?</h2>
-              <button className="iniciar" onClick={() => setStart(true)}>Começar</button>
-            </>: 
-            <>
-            <QuizQuestions pergunta={pergunta.perguntas[indexPergunta]}/>
-            <button className="btnProxima" onClick={() => setIndexPergunta((ant) => ++ant)}>Proxima</button>
-            </>
-            }
-              
-          </div>
+              <button className="iniciar" onClick={() => setStart(true)}>
+                Começar
+              </button>
+            </div>
+          ) : (
+            <div className="content">
+              <div class="pergunta">
+                <QuizQuestions pergunta={pergunta.perguntas[indexPergunta]} />
+                <button
+                  className="btnProxima"
+                  onClick={() => setIndexPergunta((ant) => ++ant)}
+                >
+                  Proxima
+                </button>
+              </div>
+            </div>
+          )}
         </main>
       </div>
     );
@@ -48,7 +57,7 @@ function Quiz() {
     return (
       <div className="quiz">
         <main>
-          <div className="content">
+          <div className="content content-preparar">
             <Loading />
           </div>
         </main>

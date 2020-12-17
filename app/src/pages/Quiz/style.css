@@ -31,22 +31,38 @@
 .quiz main > .content{
     max-width: 1000px;
     width: 80vw;
-    min-height: 80vh;
+    height: 80vh;
+    overflow: auto;
     background-color: #fff;
     border-radius: 5px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: flex-start;
+    color:#303030;
+    position: relative;
+}
+.quiz main > .content-preparar{
+    max-width: 1000px;
+    width: 80vw;
+    height: 80vh;
+    overflow: auto;
+    background-color: #fff;
+    border-radius: 5px;
+    display: flex;
     align-items: center;
     flex-direction: column;
     justify-content: center;
     color:#303030;
     position: relative;
 }
-.quiz main > .content h1{
+.quiz main > .content > h1{
     font-size: 1.7rem;
     font-weight: 400;
     text-align: center;
-    margin: 0;
+    margin: 0 0 15px 0 ;
 }
-.quiz main > .content h2{
+.quiz main > .content > h2{
     font-size: 2.5rem;
     line-height: 2.5rem;
     text-transform: uppercase;
@@ -74,20 +90,20 @@
     left:32px;
     top:16px
 }
-.quiz .pergunta{
+/* .quiz .pergunta{
     transform: translateY(-20px);
     opacity: 0;
     animation: animaShow 0.3s forwards;
-}
+} */
 @media (max-width:650px){
     .quiz main > .content{
         width: 100vw;
         height: 100vh;
     }
-    .quiz main > .content h1{
+    .quiz main > .content > h1{
         font-size: 1rem;
     }
-    .quiz main > .content h2{
+    .quiz main > .content > h2{
         font-size: 1.5rem;
     }
     .quiz main > .content .iniciar{
