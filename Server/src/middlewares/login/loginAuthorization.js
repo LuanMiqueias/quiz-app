@@ -2,8 +2,8 @@ import jwt from 'jsonwebtoken';
 
 class LoginAuthorization {
   async required(request, responce, next) {
-    const token = request.headers.authorization.split(' ')[1];
     try {
+      const token = request.headers.authorization.split(' ')[1];
       const decode = jwt.verify(token, process.env.JWT_KEY);
       request.user_id = decode;
       next();
@@ -12,8 +12,8 @@ class LoginAuthorization {
     }
   }
   async optional(request, responce, next) {
-    const token = request.headers.authorization.split(' ')[1];
     try {
+      const token = request.headers.authorization.split(' ')[1];
       const decode = jwt.verify(token, process.env.JWT_KEY);
       request.user_id = decode;
       next();
