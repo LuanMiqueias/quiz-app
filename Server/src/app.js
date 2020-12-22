@@ -1,7 +1,7 @@
-import express from "express";
-import routes from "./routes";
-import cors from "cors";
-import mongosse from "mongoose";
+import express from 'express';
+import routes from './routes';
+import cors from 'cors';
+import mongosse from 'mongoose';
 
 class App {
   constructor() {
@@ -9,7 +9,9 @@ class App {
     this.middlewares();
     this.routes();
     mongosse.connect(
-      "",
+      'mongodb+srv://db_luan:' +
+        process.env.MONGO_PASSWORD +
+        '@quizapp.bxhuz.mongodb.net/<dbname>?retryWrites=true&w=majority',
       {
         useNewUrlParser: true,
         useUnifiedTopology: true,

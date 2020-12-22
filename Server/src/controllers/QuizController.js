@@ -1,9 +1,14 @@
-import Quiz from "../models/Quiz";
+import Quiz from '../models/Quiz';
 
 class SessionController {
   async index(request, responce) {
     const perguntas = await Quiz.find();
     return responce.json(perguntas);
+  }
+  async show(request, responce) {
+    const { id_pergunta } = request.params;
+    const pergunta = await Quiz.findOne({ _id: id_pergunta });
+    return responce.json(pergunta);
   }
   async store(request, responce) {
     const { isFavorite, titulo, descricao, tags, perguntas } = request.body;
