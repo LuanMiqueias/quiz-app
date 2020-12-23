@@ -39,7 +39,7 @@ function Quiz() {
             </div>
           ) : (
             <div className="content">
-              <div class="pergunta">
+              <div className="pergunta">
                 <QuizQuestions pergunta={pergunta.perguntas[indexPergunta]} />
                 <button
                   className="btnProxima"

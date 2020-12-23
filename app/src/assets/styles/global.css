@@ -15,6 +15,14 @@ a{
     max-width: 1300px;
     margin: 0 auto;
 }
+#btn-logout{
+    background: rgb(212, 71, 102);
+    margin: 0 0 0 25px;
+    transition:all .1s
+}
+#btn-logout:hover{
+    background: rgb(122, 30, 50);
+}
 @keyframes animaShow {
     to{
     transform: initial;

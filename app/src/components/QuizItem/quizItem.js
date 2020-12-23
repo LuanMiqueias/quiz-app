@@ -1,12 +1,12 @@
-import React from "react";
-import "./style.css";
-import iconHeart from "../../assets/icons/IconHeart.svg";
-import iconHeartSelecionado from "../../assets/icons/IconHeart-selecionado.svg";
-import { Link } from "react-router-dom";
+import React from 'react';
+import './style.css';
+import iconHeart from '../../assets/icons/IconHeart.svg';
+import iconHeartSelecionado from '../../assets/icons/IconHeart-selecionado.svg';
+import { Link } from 'react-router-dom';
 
 function QuizItem({ title, description, tags, id, favorite }) {
   const [isFavorite, setIsFavorite] = React.useState(favorite);
-  const [iconFavorite, setIconFavorite] = React.useState();
+  // const [iconFavorite, setIconFavorite] = React.useState();
 
   function SalvarFavorito(id) {
     if (localStorage.favoritos) {
@@ -38,10 +38,10 @@ function QuizItem({ title, description, tags, id, favorite }) {
       >
         <img
           src={isFavorite ? iconHeartSelecionado : iconHeart}
-          alt={isFavorite ? "Adicionar aos Favoritos" : "Remover do Favoritos"}
+          alt={isFavorite ? 'Adicionar aos Favoritos' : 'Remover do Favoritos'}
         />
       </div>
-      <Link to={"quiz/" + id} className="content-quizItem">
+      <Link to={'quiz/' + id} className="content-quizItem">
         <div>
           <h1>{title}</h1>
           <p>{description}</p>
@@ -54,7 +54,7 @@ function QuizItem({ title, description, tags, id, favorite }) {
           ))}
         </div>
       </Link>
-      <Link to={"quiz/" + id} className="buttonBlock">
+      <Link to={'quiz/' + id} className="buttonBlock">
         <button className="btn">Responder</button>
       </Link>
     </div>
