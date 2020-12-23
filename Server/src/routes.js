@@ -21,5 +21,6 @@ routes.delete(
 //USER
 routes.post('/login', UserController.login);
 routes.post('/register', UserController.register);
+routes.get('/user', loginAuthorization.required, UserController.info);
 
 export default routes;

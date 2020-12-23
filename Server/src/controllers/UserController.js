@@ -59,6 +59,11 @@ class UserController {
       });
     });
   }
+  async info(request, responce) {
+    const { user_id } = request.user_id;
+    const user = await User.findOne({ _id: user_id }, { senha: 0 });
+    return responce.json(user);
+  }
 }
 
 export default new UserController();
