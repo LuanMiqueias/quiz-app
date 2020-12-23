@@ -190,7 +190,10 @@
     background-color: #fff;
     transform: rotate(-45deg);
 }
-
+.erroFetch{
+    color:rgb(214, 60, 99);
+    padding:0px 0 16px
+}
 @media(max-width:768px){
     .container-modal{
         padding: 0;

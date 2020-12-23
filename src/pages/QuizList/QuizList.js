@@ -1,18 +1,21 @@
 import React from 'react';
 import './style.css';
 
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 import Header from '../../components/Header/header';
 
 import iconSearch from '../../assets/icons/IconSearch.svg';
-import IconUser from '../../assets/icons/IconUser.svg';
+// import IconUser from '../../assets/icons/IconUser.svg';
 import QuizItem from '../../components/QuizItem/quizItem';
 import Loading from '../../components/Loading/loading';
 import Modal from '../../components/Modal/Modal';
+import { GlobalContext } from '../../pages/GlobalStorage';
 
 function QuizList() {
   const [perguntas, setPerguntas] = React.useState();
   const [loading, setLoading] = React.useState(true);
+  
+  const global = React.useContext(GlobalContext);
 
   React.useEffect(() => {
     setLoading(true);
@@ -48,13 +51,13 @@ function QuizList() {
     <div className="quizList">
       <Header>
         <div className="container-right">
-          <form>
+          <form class="formSearch">
             <input type="text" />
             <button>
               <img src={iconSearch} alt="" />
             </button>
           </form>
-          <Modal>Login {'>'}</Modal>
+          {global.login ? global.dadosUser.nome : <Modal type="login">Login {'>'} </Modal>}
         </div>
       </Header>
       <main>
