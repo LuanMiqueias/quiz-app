@@ -1,8 +1,12 @@
 
 .landing header .container-link a{
+
     font-family: poppins;
-    color:#909090;
-    cursor: not-allowed;
+    padding: 7px 20px;
+    text-align: center;
+    background: #9CE0E0;
+    border-radius: 20px;
+    color:#fff
 }
 .landing{
     width: 100%;
