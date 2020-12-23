@@ -1,14 +1,15 @@
-import React from "react";
-import "./style.css";
-import Header from "../../components/Header/header";
-import { Link } from "react-router-dom";
+import React from 'react';
+import './style.css';
+import Header from '../../components/Header/header';
+import Modal from '../../components/Modal/Modal';
+import { Link } from 'react-router-dom';
 
 function Landing() {
   return (
     <div className="container landing">
       <Header>
         <div className="container-link">
-          <Link to="/">Login {">"}</Link>
+          <Modal type="login">Login {'>'} </Modal>
         </div>
       </Header>
       <main>
@@ -34,7 +35,7 @@ function Landing() {
         <div className="content">
           <button className="btn btn-comoFunciona">Como Funciona?</button>
           <p>
-            Desenvolvido por{" "}
+            Desenvolvido por{' '}
             <a href="https://luanmiqueias.com.br">Luan Miqueias</a>
           </p>
         </div>

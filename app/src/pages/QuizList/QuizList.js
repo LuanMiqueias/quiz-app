@@ -8,6 +8,7 @@ import iconSearch from '../../assets/icons/IconSearch.svg';
 import IconUser from '../../assets/icons/IconUser.svg';
 import QuizItem from '../../components/QuizItem/quizItem';
 import Loading from '../../components/Loading/loading';
+import Modal from '../../components/Modal/Modal';
 
 function QuizList() {
   const [perguntas, setPerguntas] = React.useState();
@@ -53,7 +54,7 @@ function QuizList() {
               <img src={iconSearch} alt="" />
             </button>
           </form>
-          <Link to="/">Login {'>'}</Link>
+          <Modal>Login {'>'}</Modal>
         </div>
       </Header>
       <main>
