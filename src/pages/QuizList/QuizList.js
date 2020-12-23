@@ -1,13 +1,13 @@
-import React from "react";
-import "./style.css";
+import React from 'react';
+import './style.css';
 
-import { Link } from "react-router-dom";
-import Header from "../../components/Header/header";
+import { Link } from 'react-router-dom';
+import Header from '../../components/Header/header';
 
-import iconSearch from "../../assets/icons/IconSearch.svg";
-import IconUser from "../../assets/icons/IconUser.svg";
-import QuizItem from "../../components/QuizItem/quizItem";
-import Loading from "../../components/Loading/loading";
+import iconSearch from '../../assets/icons/IconSearch.svg';
+import IconUser from '../../assets/icons/IconUser.svg';
+import QuizItem from '../../components/QuizItem/quizItem';
+import Loading from '../../components/Loading/loading';
 
 function QuizList() {
   const [perguntas, setPerguntas] = React.useState();
@@ -15,7 +15,7 @@ function QuizList() {
 
   React.useEffect(() => {
     setLoading(true);
-    fetch("http://192.168.0.105:3030/all")
+    fetch('http://192.168.0.107:21037/all')
       .then((responce) => responce.json())
       .then((json) => {
         const perguntaItem = json.map(({ titulo, descricao, tags, _id }) => {
@@ -53,7 +53,7 @@ function QuizList() {
               <img src={iconSearch} alt="" />
             </button>
           </form>
-          <Link to="/">Login {">"}</Link>
+          <Link to="/">Login {'>'}</Link>
         </div>
       </Header>
       <main>
