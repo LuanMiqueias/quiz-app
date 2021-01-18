@@ -1,30 +1,27 @@
-import React from 'react';
-import './style.css';
-import Header from '../../components/Header/header';
-import Modal from '../../components/Modal/Modal';
-import { Link } from 'react-router-dom';
-import { GlobalContext } from '../../pages/GlobalStorage';
-import Loading from '../../components/Loading/loading';
+import React from "react";
+import "./style.css";
+import Header from "../../components/Header/header";
+import Modal from "../../components/Modal/Modal";
+import { Link } from "react-router-dom";
+import { GlobalContext } from "../../pages/GlobalStorage";
+import Loading from "../../components/Loading/loading";
 
 function Landing() {
   const [user, setUser] = React.useState(null);
   const global = React.useContext(GlobalContext);
+  const [teste, setTeste] = React.useState(false);
 
   React.useEffect(() => {
-    let mounted = true;
-    if (global.loading) {
-      if (mounted) {
-        setUser(teste());
-      }
+    if (global.login) {
+      setTeste((prev) => !prev);
     }
-    return () => (mounted = false);
-  }, [setUser, global]);
+  }, [setTeste]);
 
-  function teste() {
+  React.useEffect(() => {
     if (global.loading) {
       return <Loading />;
-    } else if (!global.loading && global.login && global.dadosUser) {
-      return (
+    } else if (global.login) {
+      setUser(
         <>
           {global.dadosUser.nome}
           <a href="/" id="btn-logout" onClick={(e) => global.logout(e)}>
@@ -32,14 +29,19 @@ function Landing() {
           </a>
         </>
       );
-    } else {
-      return <Modal type="login">Login {'>'} </Modal>;
+      console.log(global.dadosUser);
+      return;
+    } else if (!global.login) {
+      console.log(global.login);
+      setUser(<Modal type="login">Login {">"} </Modal>);
+      return;
     }
-  }
+  }, [setUser, global]);
+
   return (
     <div className="container landing">
       <Header>
-        <div className="container-link">{teste()}</div>
+        <div className="container-link">{user}</div>
       </Header>
       <main>
         <div className="content">
@@ -52,9 +54,15 @@ function Landing() {
               <Link to="all" className="btn btn-responder">
                 Responder
               </Link>
-              <button className="btn btn-criar" disabled>
-                Criar
-              </button>
+              {teste ? (
+                <Modal type="criar">
+                  <button className="btn btn-criar">Criar</button>
+                </Modal>
+              ) : (
+                <Modal type="login">
+                  <button className="btn btn-criar">Criar</button>
+                </Modal>
+              )}
             </div>
             <p className="msgUpdate">Em breve novas atualizações!</p>
           </section>
@@ -62,9 +70,10 @@ function Landing() {
       </main>
       <footer>
         <div className="content">
-          <button className="btn btn-comoFunciona">Como Funciona?</button>
+          {/* <button className="btn btn-comoFunciona">Como Funciona?</button> */}
+
           <p>
-            Desenvolvido por{' '}
+            Desenvolvido por{" "}
             <a href="https://luanmiqueias.com.br">Luan Miqueias</a>
           </p>
         </div>

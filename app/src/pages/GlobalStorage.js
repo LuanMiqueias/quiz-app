@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 export const GlobalContext = React.createContext();
 
@@ -15,14 +15,15 @@ export function GlobalStorage({ children }) {
   }, []);
 
   async function verificarLogin() {
+    console.log("verificou");
     const token = localStorage.token;
     setLoading(true);
     try {
-      const responce = await fetch('http://localhost:21037/user', {
-        method: 'GET',
+      const responce = await fetch("http://localhost:21037/user", {
+        method: "GET",
         headers: {
-          'Content-Type': 'application/json',
-          Authorization: 'bearer ' + token,
+          "Content-Type": "application/json",
+          Authorization: "bearer " + token,
         },
       });
 
@@ -30,23 +31,28 @@ export function GlobalStorage({ children }) {
         setLoading(false);
         setLogin(false);
         setDadosUser(null);
-        return;
+        return false;
       }
       const dados = await responce.json();
       if (dados) {
         setDadosUser(dados);
         setLoading(false);
         setLogin(true);
+        return true;
       }
     } catch (err) {
+      setLoading(false);
       console.log(err);
+      return false;
     }
   }
 
   function logout(e) {
     e.preventDefault();
-    localStorage.token = '';
+    localStorage.token = "";
+    setDadosUser(null);
     setLogin(false);
+    setLoading(false);
   }
   return (
     <GlobalContext.Provider

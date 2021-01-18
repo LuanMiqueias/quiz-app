@@ -41,7 +41,7 @@ function QuizItem({ title, description, tags, id, favorite }) {
           alt={isFavorite ? 'Adicionar aos Favoritos' : 'Remover do Favoritos'}
         />
       </div>
-      <Link to={'quiz/' + id} className="content-quizItem">
+      <Link to={'/quiz/' + id} className="content-quizItem">
         <div>
           <h1>{title}</h1>
           <p>{description}</p>
@@ -54,7 +54,7 @@ function QuizItem({ title, description, tags, id, favorite }) {
           ))}
         </div>
       </Link>
-      <Link to={'quiz/' + id} className="buttonBlock">
+      <Link to={'/quiz/' + id} className="buttonBlock">
         <button className="btn">Responder</button>
       </Link>
     </div>

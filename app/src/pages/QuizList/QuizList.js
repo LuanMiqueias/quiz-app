@@ -14,12 +14,12 @@ import { GlobalContext } from '../../pages/GlobalStorage';
 function QuizList() {
   const [perguntas, setPerguntas] = React.useState();
   const [loading, setLoading] = React.useState(true);
-  
+
   const global = React.useContext(GlobalContext);
 
   React.useEffect(() => {
     setLoading(true);
-    fetch('http://192.168.0.107:21037/all')
+    fetch('http://localhost:21037/all')
       .then((responce) => responce.json())
       .then((json) => {
         const perguntaItem = json.map(({ titulo, descricao, tags, _id }) => {
@@ -57,7 +57,11 @@ function QuizList() {
               <img src={iconSearch} alt="" />
             </button>
           </form>
-          {global.login ? global.dadosUser.nome : <Modal type="login">Login {'>'} </Modal>}
+          {global.login ? (
+            global.dadosUser.nome
+          ) : (
+            <Modal type="login">Login {'>'} </Modal>
+          )}
         </div>
       </Header>
       <main>
