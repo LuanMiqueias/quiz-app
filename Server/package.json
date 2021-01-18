@@ -1,18 +1,17 @@
 {
-  "name": "Server",
+  "name": "server",
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "start": "nodemon src/server.js"
+    "start": "node src/server.js",
+    "build": "sucrase ./src -d ./build --transforms imports"
   },
   "dependencies": {
+    "bcrypt": "^5.0.0",
     "cors": "^2.8.5",
     "express": "^4.17.1",
-    "mongoose": "^5.10.17"
-  },
-  "devDependencies": {
-    "sucrase": "^3.16.0",
-    "nodemon": "^2.0.6"
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.11.8"
   }
 }

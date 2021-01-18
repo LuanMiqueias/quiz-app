@@ -1,10 +1,10 @@
-import React from "react";
-import "./style.css";
+import React from 'react';
+import './style.css';
 
-import { Link, useParams } from "react-router-dom";
-import Loading from "../../components/Loading/loading";
-import iconVoltar from "../../assets/icons/iconArrow-left.svg";
-import QuizQuestions from "../../components/QuizQuestions/QuizQuestions";
+import { Link, useParams } from 'react-router-dom';
+import Loading from '../../components/Loading/loading';
+import iconVoltar from '../../assets/icons/iconArrow-left.svg';
+import QuizQuestions from '../../components/QuizQuestions/QuizQuestions';
 
 // import "./style.css";
 
@@ -15,13 +15,13 @@ function Quiz() {
 
   const params = useParams();
   React.useEffect(() => {
-    fetch("http://192.168.0.105:3030/quiz/" + params.id)
+    fetch('http://192.168.0.107:21037/quiz/' + params.id)
       .then((responce) => responce.json())
       .then((json) => {
         console.log(json);
         setPergunta(json);
       });
-  }, []);
+  }, [setPergunta, params]);
   if (pergunta) {
     return (
       <div className="quiz">
@@ -39,7 +39,7 @@ function Quiz() {
             </div>
           ) : (
             <div className="content">
-              <div class="pergunta">
+              <div className="pergunta">
                 <QuizQuestions pergunta={pergunta.perguntas[indexPergunta]} />
                 <button
                   className="btnProxima"

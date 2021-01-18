@@ -13,7 +13,6 @@
 }
 .quizList header .container-right a{
     font-family: poppins;
-    cursor: not-allowed;
     padding: 7px 20px;
     text-align: center;
     background: #9CE0E0;
@@ -30,7 +29,7 @@
     position: relative;
     display: flex;
 }
-.container-right form input{
+.container-right .formSearch input{
     width: 300px;
     height: 35px;
     border:1px solid #bbb;
@@ -39,14 +38,14 @@
     padding: 0px 15px;
     transition: all 0.15s;
 }
-.container-right form input:hover{
+.container-right .formSearch input:hover{
     width: 325px;
     transition-delay: 0.1s;
 }
-.container-right form input:focus{
+.container-right .formSearch input:focus{
     width: 400px;
 }
-.container-right form button{
+.container-right .formSearch button{
     width: 60px;
     height: 35px;
     border:1px solid #bbb;
@@ -62,7 +61,7 @@
     transition: all 0.1s;
 }
 
-.container-right form button:hover{
+.container-right .formSearch button:hover{
     opacity: 0.8;
 }
 .quizList main{
@@ -131,9 +130,6 @@
         font-size: 1.5rem;
         margin:32px 10px 20px;
     }
-}
-
-@media (max-width: 500px){
     .quizList main > .content{
         padding: 0px 10px;
         margin-top: -10px;
@@ -152,14 +148,14 @@
         height: 40px;
 
     }
-    .container-right form input{
+    .container-right .formSearch input{
         width: 0;
         opacity: 0;
     }
     .container-right{
         width: 100%;
     }
-    .container-right form button{
+    .container-right .formSearch button{
         background: none;
         display: flex;
         justify-content: flex-end;

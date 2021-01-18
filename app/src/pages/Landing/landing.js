@@ -1,15 +1,45 @@
-import React from "react";
-import "./style.css";
-import Header from "../../components/Header/header";
-import { Link } from "react-router-dom";
+import React from 'react';
+import './style.css';
+import Header from '../../components/Header/header';
+import Modal from '../../components/Modal/Modal';
+import { Link } from 'react-router-dom';
+import { GlobalContext } from '../../pages/GlobalStorage';
+import Loading from '../../components/Loading/loading';
 
 function Landing() {
+  const [user, setUser] = React.useState(null);
+  const global = React.useContext(GlobalContext);
+
+  React.useEffect(() => {
+    let mounted = true;
+    if (global.loading) {
+      if (mounted) {
+        setUser(teste());
+      }
+    }
+    return () => (mounted = false);
+  }, [setUser, global]);
+
+  function teste() {
+    if (global.loading) {
+      return <Loading />;
+    } else if (!global.loading && global.login && global.dadosUser) {
+      return (
+        <>
+          {global.dadosUser.nome}
+          <a href="/" id="btn-logout" onClick={(e) => global.logout(e)}>
+            Sair
+          </a>
+        </>
+      );
+    } else {
+      return <Modal type="login">Login {'>'} </Modal>;
+    }
+  }
   return (
     <div className="container landing">
       <Header>
-        <div className="container-link">
-          <Link to="/">Login {">"}</Link>
-        </div>
+        <div className="container-link">{teste()}</div>
       </Header>
       <main>
         <div className="content">
@@ -34,7 +64,7 @@ function Landing() {
         <div className="content">
           <button className="btn btn-comoFunciona">Como Funciona?</button>
           <p>
-            Desenvolvido por{" "}
+            Desenvolvido por{' '}
             <a href="https://luanmiqueias.com.br">Luan Miqueias</a>
           </p>
         </div>
