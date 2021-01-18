@@ -1,10 +1,10 @@
-import React from 'react';
-import './style.css';
+import React from "react";
+import "./style.css";
 
-import { Link, useParams } from 'react-router-dom';
-import Loading from '../../components/Loading/loading';
-import iconVoltar from '../../assets/icons/iconArrow-left.svg';
-import QuizQuestions from '../../components/QuizQuestions/QuizQuestions';
+import { Link, useParams } from "react-router-dom";
+import Loading from "../../components/Loading/loading";
+import iconVoltar from "../../assets/icons/iconArrow-left.svg";
+import QuizQuestions from "../../components/QuizQuestions/QuizQuestions";
 
 // import "./style.css";
 
@@ -15,14 +15,15 @@ function Quiz() {
 
   const params = useParams();
   React.useEffect(() => {
-    fetch('http://192.168.0.107:21037/quiz/' + params.id)
+    fetch("http://localhost:21037/quiz/" + params.id)
       .then((responce) => responce.json())
       .then((json) => {
-        console.log(json);
+        // console.log(json);
         setPergunta(json);
       });
   }, [setPergunta, params]);
   if (pergunta) {
+    console.log(pergunta);
     return (
       <div className="quiz">
         <main>
@@ -40,7 +41,12 @@ function Quiz() {
           ) : (
             <div className="content">
               <div className="pergunta">
-                <QuizQuestions pergunta={pergunta.perguntas[indexPergunta]} />
+                <QuizQuestions
+                  pergunta={
+                    pergunta.perguntas[0]["pergunta" + (indexPergunta + 1)]
+                  }
+                  index={indexPergunta}
+                />
                 <button
                   className="btnProxima"
                   onClick={() => setIndexPergunta((ant) => ++ant)}

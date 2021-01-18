@@ -1,5 +1,5 @@
-import React from 'react';
-import Loading from '../../components/Loading/loading';
+import React from "react";
+import Loading from "../../components/Loading/loading";
 
 function Cadastrar(
   {
@@ -25,7 +25,7 @@ function Cadastrar(
         <span className="close-modal-span close"></span>
         <h1>Crie sua Conta!</h1>
         <h2>
-          Bem-vindo novamente! <span>👋</span>
+          Seja Bem-vindo! <span>👋</span>
         </h2>
         <div className="input-block">
           <label htmlFor="nome  ">
@@ -61,7 +61,13 @@ function Cadastrar(
         </div>
         <div className="footer-modal">
           <p className="erroFetch">{erroFetch}</p>
-          {loading ? <Loading /> : <button type="submit">Cadastrar-se</button>}
+          {loading ? (
+            <Loading />
+          ) : (
+            <button type="submit" className="btn-roxo">
+              Cadastrar-se
+            </button>
+          )}
 
           <div className="container-text-footer-modal">
             <p>Já tem uma conta?</p>
@@ -69,7 +75,7 @@ function Cadastrar(
               href="/"
               onClick={(e) => {
                 setErroFetch(null);
-                return setModalTipo('login');
+                return setModalTipo("login");
               }}
             >
               Faça login

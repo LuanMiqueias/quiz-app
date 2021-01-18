@@ -1,5 +1,5 @@
-import React from 'react';
-import Loading from '../../components/Loading/loading';
+import React from "react";
+import Loading from "../../components/Loading/loading";
 
 function Login(
   {
@@ -51,14 +51,20 @@ function Login(
         </div>
         <div className="footer-modal">
           <p className="erroFetch">{erroFetch}</p>
-          {loading ? <Loading /> : <button type="submit">Entrar</button>}
+          {loading ? (
+            <Loading />
+          ) : (
+            <button type="submit" className="btn-roxo">
+              Entrar
+            </button>
+          )}
           <div className="container-text-footer-modal">
             <p>Não tem uma conta?</p>
             <span
               href="/"
               onClick={(e) => {
                 setErroFetch(null);
-                return setModalTipo('cadastrar');
+                return setModalTipo("cadastrar");
               }}
             >
               Crie uma!

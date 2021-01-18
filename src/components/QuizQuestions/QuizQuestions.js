@@ -1,24 +1,25 @@
-import React from 'react';
-import './style.css';
+import React from "react";
+import "./style.css";
 function letraAlternativa(index) {
-  const letraArray = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
+  const letraArray = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
   return letraArray[index];
 }
-function QuizQuestions({ pergunta }) {
+function QuizQuestions({ pergunta, index }) {
+  console.log(pergunta);
   return (
     <>
-      <h1>{pergunta['pergunta']}</h1>
+      <h1>{pergunta.pergunta}</h1>
       <div class="content-pergunta">
         {pergunta.alternativas.map((alternativa, index) => {
           return (
-            <label htmlFor={'alternativa_' + index} key={index}>
+            <label htmlFor={"alternativa_" + index} key={index}>
               <input
                 type="radio"
                 name="alternativa"
-                id={'alternativa_' + index}
+                id={"alternativa_" + index}
               />
               <span>{letraAlternativa(index)}</span>
-              <p>{alternativa}</p>
+              <p>{alternativa["alternativa" + index]}</p>
             </label>
           );
         })}
