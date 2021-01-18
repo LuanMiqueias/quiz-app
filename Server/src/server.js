@@ -1,3 +1,4 @@
-import App from './app';
+import App from "./app";
 
-App.listen(21037);
+let porta = process.env.PORT || 21037;
+App.listen(porta);
