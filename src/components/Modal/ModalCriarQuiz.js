@@ -2,7 +2,7 @@ import React from "react";
 import Loading from "../../components/Loading/loading";
 import seta from "../../assets/icons/iconArrow-left.svg";
 function CriarQuiz(
-  { onclickForm, setModalTipo, loading, onChange, values },
+  { onclickForm, setModalTipo, loading, onChange, values, fecharModal },
   ...props
 ) {
   const [indexPergunta, setIndexPergunta] = React.useState(0);
@@ -48,14 +48,20 @@ function CriarQuiz(
         return { ...dados };
       });
     } else if (type === "inicio") {
-      const arrayTags = e.target.value.split(",");
-
+      const value = e.target.value;
+      console.log(e.target.id);
       if (e.target.id === "tags") {
+        const arrayTags = e.target.value.split(",");
+        setInputDados({
+          ...inputDados,
+          [e.target.id]: arrayTags,
+        });
+        return;
         // console.log(arrayTags);
       }
       setInputDados({
         ...inputDados,
-        [e.target.id]: arrayTags,
+        [e.target.id]: value,
       });
 
       return;
@@ -137,36 +143,36 @@ function CriarQuiz(
     return false;
   }
   async function fetchApi(e) {
-    console.log("TESTE");
-    // e.preventDefault();
-    // const arrayTags = inputDados.tags.map((item) => {
-    //   return item.trim();
-    // });
-    // const form = {
-    //   titulo: inputDados.titulo,
-    //   descricao: inputDados.descricao,
-    //   tags: arrayTags,
-    //   perguntas: [inputDados.perguntas],
-    // };
-    // console.log(form);
-    // try {
-    //   const responce = await fetch("http://localhost:21037/new-question", {
-    //     method: "POST",
-    //     headers: {
-    //       "Content-Type": "application/json",
-    //       Authorization: "bearer " + localStorage.token,
-    //     },
-    //     body: JSON.stringify(form),
-    //   });
-    //   const json = await responce.json();
-    //   if (!responce.ok) {
-    //     setErroFetch(json.menssage);
-    //     throw Error(json.menssage);
-    //   }
-    //   setErroFetch(null);
-    // } catch (err) {
-    //   console.log(err);
-    // }
+    e.preventDefault();
+    const arrayTags = inputDados.tags.map((item) => {
+      return item.trim();
+    });
+    const form = {
+      titulo: inputDados.titulo,
+      descricao: inputDados.descricao,
+      tags: arrayTags,
+      perguntas: [inputDados.perguntas],
+    };
+    console.log(form);
+    try {
+      const responce = await fetch("http://localhost:21037/new-question", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "bearer " + localStorage.token,
+        },
+        body: JSON.stringify(form),
+      });
+      const json = await responce.json();
+      if (!responce.ok) {
+        setErroFetch(json.menssage);
+        throw Error(json.menssage);
+      }
+      setErroFetch(null);
+    } catch (err) {
+      console.log(err);
+    }
+    fecharModal(e);
   }
   if (indexPergunta === 0) {
     return (

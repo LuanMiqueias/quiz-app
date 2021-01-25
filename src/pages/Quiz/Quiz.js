@@ -15,7 +15,7 @@ function Quiz() {
 
   const params = useParams();
   React.useEffect(() => {
-    fetch("http://localhost:21037/quiz/" + params.id)
+    fetch("https://quizluan.herokuapp.com/quiz/" + params.id)
       .then((responce) => responce.json())
       .then((json) => {
         // console.log(json);

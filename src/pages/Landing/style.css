@@ -36,7 +36,7 @@
   line-height: 60px;
 }
 
-.landing main h1 span {
+.landing main .title span {
   font-size: 35px;
   font-weight: 400;
 }
@@ -105,12 +105,12 @@
 }
 
 @media (max-width: 650px) {
-  .landing main h1 {
+  .landing main .title {
     font-size: 45px;
     line-height: 60px;
   }
 
-  .landing main h1 span {
+  .landing main .title span {
     font-size: 25px;
   }
   .landing footer {
@@ -121,12 +121,12 @@
 }
 
 @media (max-width: 400px) {
-  .landing main h1 {
+  .landing main .title {
     font-size: 30px;
     line-height: 30px;
   }
 
-  .landing main h1 span {
+  .landing main .title span {
     font-size: 20px;
   }
   .landing footer {

@@ -8,40 +8,42 @@ import Loading from "../../components/Loading/loading";
 
 function Landing() {
   const [user, setUser] = React.useState(null);
-  const global = React.useContext(GlobalContext);
+  const { auth } = React.useContext(GlobalContext);
   const [teste, setTeste] = React.useState(false);
 
-  React.useEffect(() => {
-    if (global.login) {
-      setTeste((prev) => !prev);
-    }
-  }, [setTeste]);
+  // React.useEffect(() => {
+  //   if (global.login) {
+  //     setTeste((prev) => !prev);
+  //   }
+  // }, [setTeste]);
 
-  React.useEffect(() => {
-    if (global.loading) {
-      return <Loading />;
-    } else if (global.login) {
-      setUser(
-        <>
-          {global.dadosUser.nome}
-          <a href="/" id="btn-logout" onClick={(e) => global.logout(e)}>
-            Sair
-          </a>
-        </>
-      );
-      console.log(global.dadosUser);
-      return;
-    } else if (!global.login) {
-      console.log(global.login);
-      setUser(<Modal type="login">Login {">"} </Modal>);
-      return;
-    }
-  }, [setUser, global]);
+  // React.useEffect(() => {
+  //   if (global.loading) {
+  //     return <Loading />;
+  //   } else if (global.login) {
+  //     setUser(
+  //       <>
+  //         {global.dadosUser.nome}
+  //         <a href="/" id="btn-logout" onClick={(e) => global.logout(e)}>
+  //           Sair
+  //         </a>
+  //       </>
+  //     );
+  //     console.log(global.dadosUser);
+  //     return;
+  //   } else if (!global.login) {
+  //     console.log(global.login);
+  //     setUser(<Modal type="login">Login {">"} </Modal>);
+  //     return;
+  //   }
+  // }, [setUser, global]);
 
   return (
     <div className="container landing">
       <Header>
-        <div className="container-link">{user}</div>
+        <div className="container-link">
+          <Modal type="login">Login {">"} </Modal>
+        </div>
       </Header>
       <main>
         <div className="content">
@@ -51,10 +53,10 @@ function Landing() {
               Questionarios!
             </h1>
             <div className="buttons">
-              <Link to="all" className="btn btn-responder">
+              <Link to="/all" className="btn btn-responder">
                 Responder
               </Link>
-              {teste ? (
+              {auth ? (
                 <Modal type="criar">
                   <button className="btn btn-criar">Criar</button>
                 </Modal>
