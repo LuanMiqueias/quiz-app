@@ -6,9 +6,11 @@ import Cadastrar from "./ModalCadastro";
 import CriarQuiz from "./ModalCriarQuiz";
 
 import { GlobalContext } from "../../pages/GlobalStorage";
+import { useNavigate } from "react-router-dom";
 
-function Modal({ children, type, titulo, subtitulo }) {
-  const global = React.useContext(GlobalContext);
+function Modal({ children, type, titulo, subtitulo, isActive }) {
+  const { handleLogin } = React.useContext(GlobalContext);
+  const navigate = useNavigate();
   const [inputData, setInputData] = React.useState({
     email: "",
     senha: "",
@@ -20,6 +22,9 @@ function Modal({ children, type, titulo, subtitulo }) {
     setInputData({ ...inputData, [e.target.id]: value });
   }
   React.useEffect(() => {
+    if (isActive) {
+      setModalAtivo(isActive);
+    }
     const elementClose = document.querySelectorAll(".close");
     elementClose.forEach((item) => {
       ["click", "touch"].forEach((event) => {
@@ -38,6 +43,9 @@ function Modal({ children, type, titulo, subtitulo }) {
   function handleClickModal(e) {
     e.preventDefault();
     if (modalAtivo) {
+      if (isActive) {
+        return navigate("/");
+      }
       const elementContainer = document.querySelector(".container-modal");
       if (elementContainer) {
         elementContainer.classList.add("close-modal");
@@ -58,11 +66,14 @@ function Modal({ children, type, titulo, subtitulo }) {
     const form = inputData;
     setLoading(true);
     try {
-      const responce = await fetch("http://localhost:21037/" + typeModal, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(form),
-      });
+      const responce = await fetch(
+        "https://quizluan.herokuapp.com/" + typeModal,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(form),
+        }
+      );
       const json = await responce.json();
       if (!responce.ok) {
         setErroFetch(json.menssage);
@@ -72,8 +83,11 @@ function Modal({ children, type, titulo, subtitulo }) {
 
       if (typeModal === "login") {
         localStorage.token = json.token;
-        global.verificarLogin();
+        const isAuth = await handleLogin();
         setLoading(false);
+        if (isAuth) {
+          navigate("/dashboard");
+        }
       }
       if (typeModal === "register") {
         setModalTipo("login");
@@ -125,6 +139,9 @@ function Modal({ children, type, titulo, subtitulo }) {
         loading={loading}
         onChange={(e) => changeInput(e)}
         values={inputData}
+        fecharModal={(e) => {
+          handleClickModal(e);
+        }}
       />
     );
   }

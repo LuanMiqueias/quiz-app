@@ -19,7 +19,7 @@ function QuizQuestions({ pergunta, index }) {
                 id={"alternativa_" + index}
               />
               <span>{letraAlternativa(index)}</span>
-              <p>{alternativa["alternativa" + index]}</p>
+              <p>{alternativa[index]}</p>
             </label>
           );
         })}

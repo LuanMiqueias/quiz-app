@@ -1,15 +1,15 @@
-import React from 'react';
-import './style.css';
+import React from "react";
+import "./style.css";
 
 // import { Link } from 'react-router-dom';
-import Header from '../../components/Header/header';
+import Header from "../../components/Header/header";
 
-import iconSearch from '../../assets/icons/IconSearch.svg';
+import iconSearch from "../../assets/icons/IconSearch.svg";
 // import IconUser from '../../assets/icons/IconUser.svg';
-import QuizItem from '../../components/QuizItem/quizItem';
-import Loading from '../../components/Loading/loading';
-import Modal from '../../components/Modal/Modal';
-import { GlobalContext } from '../../pages/GlobalStorage';
+import QuizItem from "../../components/QuizItem/quizItem";
+import Loading from "../../components/Loading/loading";
+import Modal from "../../components/Modal/Modal";
+import { GlobalContext } from "../../pages/GlobalStorage";
 
 function QuizList() {
   const [perguntas, setPerguntas] = React.useState();
@@ -19,7 +19,7 @@ function QuizList() {
 
   React.useEffect(() => {
     setLoading(true);
-    fetch('http://localhost:21037/all')
+    fetch("https://quizluan.herokuapp.com/all")
       .then((responce) => responce.json())
       .then((json) => {
         const perguntaItem = json.map(({ titulo, descricao, tags, _id }) => {
@@ -60,7 +60,7 @@ function QuizList() {
           {global.login ? (
             global.dadosUser.nome
           ) : (
-            <Modal type="login">Login {'>'} </Modal>
+            <Modal type="login">Login {">"} </Modal>
           )}
         </div>
       </Header>
