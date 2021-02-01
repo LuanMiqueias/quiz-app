@@ -13,3 +13,12 @@
 - [ ] Adicionar campo de busca e filtros.
 - [ ] Um ranking para cada quiz.
 
+## Para rodar o projeto
+- Rode o servidor -> [Repositorio do servidor >](https://github.com/LuanMiqueias/server-quizapp)
+
+
+- Instale todas as depedencias com: `yarn` ou `npm install`
+
+- No diretório do projeto, inicie com: `yarn start` ou `npm start`
+
+- Abra [localhost:3000](http://localhost:3000) para visualizá-lo no navegador.
