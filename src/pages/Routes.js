@@ -1,5 +1,6 @@
 import React from "react";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import Loading from "../components/Loading/loading";
 
 import Landing from "./Landing/landing";
 import Quiz from "./Quiz/Quiz";
@@ -9,11 +10,14 @@ import { GlobalContext } from "./GlobalStorage";
 import Modal from "../components/Modal/Modal";
 
 function CustomRoute({ isPrivate, ...rest }) {
-  const { auth, loading } = React.useContext(GlobalContext);
-  console.log(auth);
-  console.log(loading);
+  const { auth, loading, handleLogin } = React.useContext(GlobalContext);
+  React.useEffect(() => handleLogin());
   if (loading) {
-    return <h1>LOADING....</h1>;
+    return (
+      <div className="center-loading">
+        <Loading />
+      </div>
+    );
   }
   if (!auth && isPrivate) {
     return <Navigate to="/login" />;

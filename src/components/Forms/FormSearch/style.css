@@ -1,0 +1,47 @@
+.formSearch {
+  margin: 0 64px;
+  position: relative;
+  display: flex;
+  border: 1px solid #c4c4c4;
+  border-radius: 5px;
+}
+.formSearch input {
+  border: none;
+  width: 100%;
+  height: 35px;
+  border-radius: 5px 0px 0px 5px;
+  outline: none;
+  padding: 0px 15px;
+  transition: all 0.15s;
+}
+
+.formSearch button {
+  width: 60px;
+  height: 35px;
+  border: 1px solid #bbb;
+  border-radius: 5px;
+  border-radius: 0px 5px 5px 0px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  cursor: pointer;
+  outline: none;
+  transition: all 0.1s;
+}
+
+.formSearch button:hover {
+  opacity: 0.8;
+}
+.formSearch button {
+  position: relative;
+}
+.formSearch button::after {
+  content: "";
+  position: absolute;
+  width: 1px;
+  height: 70%;
+  left: 0;
+  background-color: #c4c4c4;
+}

@@ -18,7 +18,7 @@ function Quiz() {
     fetch("https://quizluan.herokuapp.com/quiz/" + params.id)
       .then((responce) => responce.json())
       .then((json) => {
-        // console.log(json);
+        console.log(json);
         setPergunta(json);
       });
   }, [setPergunta, params]);
@@ -43,6 +43,7 @@ function Quiz() {
               <div className="pergunta">
                 <QuizQuestions
                   pergunta={
+                    
                     pergunta.perguntas[0]["pergunta" + (indexPergunta + 1)]
                   }
                   index={indexPergunta}

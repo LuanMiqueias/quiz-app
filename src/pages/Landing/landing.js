@@ -4,45 +4,54 @@ import Header from "../../components/Header/header";
 import Modal from "../../components/Modal/Modal";
 import { Link } from "react-router-dom";
 import { GlobalContext } from "../../pages/GlobalStorage";
-import Loading from "../../components/Loading/loading";
+// import Loading from "../../components/Loading/loading";
 
 function Landing() {
-  const [user, setUser] = React.useState(null);
+  // const [user, setUser] = React.useState(null);
   const { auth } = React.useContext(GlobalContext);
-  const [teste, setTeste] = React.useState(false);
+  const [dadosUser, setDadosUser] = React.useState(null);
+  const [loading, setLoading] = React.useState(true);
 
-  // React.useEffect(() => {
-  //   if (global.login) {
-  //     setTeste((prev) => !prev);
-  //   }
-  // }, [setTeste]);
+  // const [teste, setTeste] = React.useState(false);
 
-  // React.useEffect(() => {
-  //   if (global.loading) {
-  //     return <Loading />;
-  //   } else if (global.login) {
-  //     setUser(
-  //       <>
-  //         {global.dadosUser.nome}
-  //         <a href="/" id="btn-logout" onClick={(e) => global.logout(e)}>
-  //           Sair
-  //         </a>
-  //       </>
-  //     );
-  //     console.log(global.dadosUser);
-  //     return;
-  //   } else if (!global.login) {
-  //     console.log(global.login);
-  //     setUser(<Modal type="login">Login {">"} </Modal>);
-  //     return;
-  //   }
-  // }, [setUser, global]);
+  React.useEffect(() => {
+    const token = localStorage.token;
+
+    (async () => {
+      try {
+        const responce = await fetch("https://quizluan.herokuapp.com/user", {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "bearer " + token,
+          },
+        });
+        if (!responce.ok) {
+          return setDadosUser(null);
+        }
+        const dados = await responce.json();
+        if (dados) {
+          setLoading(false);
+          return setDadosUser(dados);
+        }
+      } catch (err) {
+        console.log(err);
+      }
+    })();
+  }, [setDadosUser]);
 
   return (
     <div className="container landing">
       <Header>
         <div className="container-link">
-          <Modal type="login">Login {">"} </Modal>
+          {auth && !loading ? (
+            dadosUser.user.nome
+          ) : (
+            <Modal type="login">Login {">"} </Modal>
+          )}
+          {/* <Link to="/" id="btn-logout" onClick={(e) => handleLogout(e)}>
+            Sair
+          </Link>  */}
         </div>
       </Header>
       <main>

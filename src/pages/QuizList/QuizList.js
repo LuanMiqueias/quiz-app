@@ -4,12 +4,12 @@ import "./style.css";
 // import { Link } from 'react-router-dom';
 import Header from "../../components/Header/header";
 
-import iconSearch from "../../assets/icons/IconSearch.svg";
 // import IconUser from '../../assets/icons/IconUser.svg';
 import QuizItem from "../../components/QuizItem/quizItem";
 import Loading from "../../components/Loading/loading";
 import Modal from "../../components/Modal/Modal";
 import { GlobalContext } from "../../pages/GlobalStorage";
+import FormSearch from "../../components/Forms/FormSearch/FormSearch";
 
 function QuizList() {
   const [perguntas, setPerguntas] = React.useState();
@@ -51,12 +51,6 @@ function QuizList() {
     <div className="quizList">
       <Header>
         <div className="container-right">
-          <form class="formSearch">
-            <input type="text" />
-            <button>
-              <img src={iconSearch} alt="" />
-            </button>
-          </form>
           {global.login ? (
             global.dadosUser.nome
           ) : (

@@ -155,14 +155,17 @@ function CriarQuiz(
     };
     console.log(form);
     try {
-      const responce = await fetch("http://localhost:21037/new-question", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: "bearer " + localStorage.token,
-        },
-        body: JSON.stringify(form),
-      });
+      const responce = await fetch(
+        "https://quizluan.herokuapp.com/new-question",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "bearer " + localStorage.token,
+          },
+          body: JSON.stringify(form),
+        }
+      );
       const json = await responce.json();
       if (!responce.ok) {
         setErroFetch(json.menssage);
