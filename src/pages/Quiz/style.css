@@ -110,6 +110,48 @@
 }
 .btnProxima::before {
 }
+.content-resultado {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  width: 80vw;
+  height: 80vh;
+}
+.content-resultado > h1 {
+  font-size: 1.5rem;
+  line-height: 3rem;
+  color: #30303081;
+  font-weight: normal;
+  text-align: center;
+}
+.content-resultado > h2 {
+  font-size: 8rem;
+  text-align: center;
+  padding: 8px 32px;
+  border-radius: 5px;
+}
+.resultadoRuim {
+  color: #b94848;
+  background: #ffdfdc;
+}
+.resultadoBom {
+  color: #50bd7a;
+  background: #dcffe4;
+}
+.content-resultado a {
+  /* position: absolute; */
+  bottom: 32px;
+  margin-top: 32px;
+  width: 80%;
+  max-width: 400px;
+  padding: 24px 0;
+  text-align: center;
+  background: #885ba0;
+  color: #fff;
+  font-size: 1.2rem;
+  border-radius: 5px;
+}
 @media (max-width: 650px) {
   .quiz main > .content {
     width: 100vw;
