@@ -1,19 +1,21 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { GlobalContext } from "../../pages/GlobalStorage";
 import Loading from "../Loading/loading";
 import "./style.css";
 
-export default function MyQuiz({ title, id }) {
+export default function MyQuiz({ title, id, update }) {
   const [erroFetch, setErroFetch] = React.useState(null);
   const [loading, setLoading] = React.useState(false);
-
+  const { setLoading: setLoadingGlobal } = React.useContext(GlobalContext);
   async function handleExcluirQuiz(e) {
     setLoading(true);
     e.preventDefault();
+    e.target.parentNode.classList.add("animation-deleteQuiz");
     try {
       const responce = await fetch(
         // "https://quizluan.herokuapp.com/delete/" + id,
-        "http://localhost:21037/delete/" + id,
+        "https://quizluan.herokuapp.com/delete/" + id,
         {
           method: "DELETE",
           headers: {
@@ -22,8 +24,16 @@ export default function MyQuiz({ title, id }) {
           },
         }
       );
+      if (responce.status === 200) {
+        return setLoadingGlobal(true);
+      } else {
+        setErroFetch("erro: " + responce.status);
+        setLoading(false);
+      }
     } catch (err) {
-      console.log(err);
+      // console.log(err);
+      setErroFetch("erro: " + err);
+      setLoading(false);
     }
     setLoading(false);
   }

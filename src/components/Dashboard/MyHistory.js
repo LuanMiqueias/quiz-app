@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import "./style.css";
 
-export default function MyHistory({ title, acertou, id }) {
+export default function MyHistory({ title, acertou, quiz_id }) {
   return (
     <div className="myHistory-item">
       <h2>{title}</h2>
@@ -13,7 +13,7 @@ export default function MyHistory({ title, acertou, id }) {
           <span className="notaRuim">{" " + acertou + "%"}</span>
         )}
       </h3>
-      <Link to={"/quiz/" + id}>Refazer</Link>
+      <Link to={"/quiz/" + quiz_id}>Refazer</Link>
     </div>
   );
 }

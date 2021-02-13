@@ -6,18 +6,18 @@ import { GlobalContext } from "../../pages/GlobalStorage";
 import Loading from "../../components/Loading/loading";
 import Header from "../../components/Header/header";
 import Modal from "../../components/Modal/Modal";
-import FormSearch from "../../components/Forms/FormSearch/FormSearch";
 import MyQuiz from "../../components/Dashboard/MyQuiz";
 import MyHistory from "../../components/Dashboard/MyHistory";
 
 function Dashboard() {
   const navigate = useNavigate();
   const { logout } = React.useContext(GlobalContext);
+  const [erroFetch, setErroFetch] = React.useState(null);
 
   const [dadosUser, setDadosUser] = React.useState(null);
   const [loading, setLoading] = React.useState(true);
-  const [myQuizzes, setMyQuizzes] = React.useState(null);
-  React.useEffect(() => {
+
+  React.useMemo(() => {
     const token = localStorage.token;
     (async () => {
       try {
@@ -32,6 +32,7 @@ function Dashboard() {
           }
         );
         if (!responce.ok) {
+          setErroFetch("error: " + responce.status);
           return setDadosUser(null);
         }
         const dados = await responce.json();
@@ -43,14 +44,22 @@ function Dashboard() {
         console.log(err);
       }
     })();
-  }, [setDadosUser]);
-  console.log(dadosUser);
+  }, []);
   function handleLogout(e) {
     e.preventDefault();
     logout(e);
     navigate("/");
   }
-
+  if (!dadosUser) {
+    if (erroFetch) {
+      return <p>{erroFetch}</p>;
+    }
+    return (
+      <div className="center-loading">
+        <Loading />
+      </div>
+    );
+  }
   if (loading) {
     return (
       <div className="center-loading">
@@ -58,10 +67,6 @@ function Dashboard() {
       </div>
     );
   }
-  if (!dadosUser) {
-    return <h1>ERRO</h1>;
-  }
-  function CreateMyQuizzes() {}
   return (
     <div className="container dashboard">
       <Header>
@@ -76,10 +81,16 @@ function Dashboard() {
             </Modal>
           </div>
           <div className="container-dadosUser">
-            {dadosUser.user.nome}
-            {/* <Link to="/" id="btn-logout" onClick={(e) => handleLogout(e)}>
-            Sair
-          </Link> */}
+            <Link
+              to="/dashboard"
+              className="btn-account"
+              style={{ background: "#432D4E" }}
+            >
+              {dadosUser.user.nome}
+            </Link>
+            <Link to="/" id="btn-logout" onClick={(e) => handleLogout(e)}>
+              Sair
+            </Link>
           </div>
         </div>
       </Header>
@@ -87,23 +98,38 @@ function Dashboard() {
         <div className="content">
           <div className="meusQuizzes">
             <h1>Meus Quizzes</h1>
+            {Object.keys(dadosUser.quizzes).length < 1 ? (
+              <p>Você ainda não criou nenhum quiz</p>
+            ) : (
+              ""
+            )}
             {dadosUser.quizzes.map((quiz) => {
-              return <MyQuiz title={quiz.titulo} key={quiz.id} id={quiz._id} />;
+              return (
+                <MyQuiz title={quiz.titulo} key={quiz._id} id={quiz._id} />
+              );
             })}
           </div>
           <div className="meuHistorico">
             <h1>Historico</h1>
-            {dadosUser.historico.map(({ titulo, _id, total, acertos }) => {
-              console.log(_id);
-              const acertosPorcentagem = (acertos / 10) * (total * 100);
-              return (
-                <MyHistory
-                  title={titulo}
-                  acertou={acertosPorcentagem}
-                  id={_id}
-                />
-              );
-            })}
+            {Object.keys(dadosUser.historico).length < 1 ? (
+              <p>Sem historicos</p>
+            ) : (
+              ""
+            )}
+            {dadosUser.historico.map(
+              ({ titulo, _id, total, acertos, quiz }) => {
+                const acertosPorcentagem = (100 / total) * acertos;
+                return (
+                  <MyHistory
+                    title={titulo}
+                    acertou={acertosPorcentagem}
+                    id={_id}
+                    key={_id}
+                    quiz_id={quiz}
+                  />
+                );
+              }
+            )}
           </div>
         </div>
       </main>

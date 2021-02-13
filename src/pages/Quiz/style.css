@@ -133,11 +133,11 @@
 }
 .resultadoRuim {
   color: #b94848;
-  background: #ffdfdc;
+  /* background: #ffdfdc; */
 }
 .resultadoBom {
   color: #50bd7a;
-  background: #dcffe4;
+  /* background: #dcffe4; */
 }
 .content-resultado a {
   /* position: absolute; */

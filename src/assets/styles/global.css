@@ -5,7 +5,9 @@
   font-family: poppins;
   font-size: 0.95rem;
 }
-
+body {
+  overflow-y: scroll;
+}
 a {
   text-decoration: none;
   color: rgb(51, 135, 190);
@@ -33,6 +35,31 @@ a {
 }
 #btn-logout:hover {
   background: rgb(122, 30, 50);
+}
+.btn-responder-dashboard {
+  padding: 10px;
+  background-color: #5fcf5c;
+}
+.btn-criar-dashboard {
+  padding: 10px;
+  background-color: #cf87f1;
+}
+.btn-account {
+  margin: 0 0 0 25px;
+  transition: all 0.1s;
+  padding: 5px 18px;
+  text-align: center;
+  border-radius: 5px;
+  color: #fff;
+}
+.btn-account:hover {
+  filter: brightness(90%);
+}
+.opacity-loading {
+  opacity: 0.5;
+}
+.animation-deleteQuiz {
+  opacity: 0.4;
 }
 @keyframes animaShow {
   to {

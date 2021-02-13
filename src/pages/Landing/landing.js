@@ -4,54 +4,25 @@ import Header from "../../components/Header/header";
 import Modal from "../../components/Modal/Modal";
 import { Link } from "react-router-dom";
 import { GlobalContext } from "../../pages/GlobalStorage";
-// import Loading from "../../components/Loading/loading";
 
 function Landing() {
-  // const [user, setUser] = React.useState(null);
-  const { auth } = React.useContext(GlobalContext);
-  const [dadosUser, setDadosUser] = React.useState(null);
-  const [loading, setLoading] = React.useState(true);
-
-  // const [teste, setTeste] = React.useState(false);
-
-  React.useEffect(() => {
-    const token = localStorage.token;
-
-    (async () => {
-      try {
-        const responce = await fetch("https://quizluan.herokuapp.com/user", {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: "bearer " + token,
-          },
-        });
-        if (!responce.ok) {
-          return setDadosUser(null);
-        }
-        const dados = await responce.json();
-        if (dados) {
-          setLoading(false);
-          return setDadosUser(dados);
-        }
-      } catch (err) {
-        console.log(err);
-      }
-    })();
-  }, [setDadosUser]);
+  const { auth, dados } = React.useContext(GlobalContext);
 
   return (
     <div className="container landing">
       <Header>
         <div className="container-link">
-          {auth && !loading ? (
-            dadosUser.user.nome
+          {dados && auth ? (
+            <Link
+              to="/dashboard"
+              className="btn-account"
+              style={{ background: "#432D4E" }}
+            >
+              {dados.nome}
+            </Link>
           ) : (
             <Modal type="login">Login {">"} </Modal>
           )}
-          {/* <Link to="/" id="btn-logout" onClick={(e) => handleLogout(e)}>
-            Sair
-          </Link>  */}
         </div>
       </Header>
       <main>

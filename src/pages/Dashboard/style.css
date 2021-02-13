@@ -35,14 +35,6 @@
   min-width: 105px;
 }
 
-.btn-responder-dashboard {
-  padding: 10px;
-  background-color: #5fcf5c;
-}
-.btn-criar-dashboard {
-  padding: 10px;
-  background-color: #cf87f1;
-}
 .dashboard header .content {
   /* display: grid;
   grid-template-columns: 50px 3fr 2fr 120px;

@@ -10,9 +10,15 @@ import { GlobalContext } from "./GlobalStorage";
 import Modal from "../components/Modal/Modal";
 
 function CustomRoute({ isPrivate, ...rest }) {
-  const { auth, loading, handleLogin } = React.useContext(GlobalContext);
-  React.useEffect(() => handleLogin());
-  if (loading) {
+  const { auth, IsAuth, loading: loadingGlobal } = React.useContext(
+    GlobalContext
+  );
+
+  React.useMemo(async () => {
+    await IsAuth();
+  }, [loadingGlobal]);
+
+  if (loadingGlobal) {
     return (
       <div className="center-loading">
         <Loading />
@@ -26,6 +32,18 @@ function CustomRoute({ isPrivate, ...rest }) {
 }
 
 function Rotas() {
+  const { IsAuth, loading: loadingGlobal } = React.useContext(GlobalContext);
+
+  React.useMemo(async () => {
+    await IsAuth();
+  }, [loadingGlobal]);
+  if (loadingGlobal) {
+    return (
+      <div className="center-loading">
+        <Loading />
+      </div>
+    );
+  }
   return (
     <BrowserRouter>
       <Routes>

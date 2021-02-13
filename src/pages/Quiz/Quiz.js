@@ -13,11 +13,13 @@ function Quiz() {
   const [start, setStart] = React.useState(false);
   const [resultado, setResultado] = React.useState(false);
   const [acertos, setAcertos] = React.useState(0);
-
   const [perguntasLength, setPerguntasLength] = React.useState(0);
-
   const [indexPergunta, setIndexPergunta] = React.useState(0);
   const [respostas, setRespostas] = React.useState({ pergunta0: {} });
+
+  const [erroFetch, setErroFetch] = React.useState(null);
+  const [loading, setLoading] = React.useState(false);
+
   const params = useParams();
 
   function handleChange({ target }) {
@@ -26,11 +28,10 @@ function Quiz() {
       ["pergunta" + indexPergunta]: target.value,
     });
   }
-  React.useEffect(() => {
+  React.useMemo(() => {
     fetch("https://quizluan.herokuapp.com/quiz/" + params.id)
       .then((responce) => responce.json())
       .then((json) => {
-        console.log(json);
         setPergunta(json);
         setPerguntasLength(Object.keys(json.perguntas[0]).length);
       });
@@ -44,9 +45,39 @@ function Quiz() {
       setIndexPergunta((ant) => ++ant);
     }
   }
+  async function updateHistoryAPI(dados) {
+    setLoading(true);
+    try {
+      const responce = await fetch(
+        // "https://quizluan.herokuapp.com/delete/" + id,
+        "https://quizluan.herokuapp.com/update-historico/",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "bearer " + localStorage.token,
+          },
+          body: JSON.stringify(dados),
+        }
+      );
+      if (!responce.ok) {
+        if (responce.status === 401) {
+          setLoading(false);
+          return setErroFetch(null);
+        }
+        setLoading(false);
+        return setErroFetch("Erro tente novamente");
+      }
+      setErroFetch(null);
+    } catch (err) {
+      console.log(err);
+      setLoading(false);
+      return setErroFetch("Erro tente novamente");
+    }
+    setLoading(false);
+  }
   function verAcertos() {
     const totalPerguntas = perguntasLength;
-    const respostasPerguntas = resultado;
 
     let arrayPerguntas = [];
     // const teste = ;
@@ -59,10 +90,13 @@ function Quiz() {
     const corretas = arrayPerguntas.filter(({ correta }, index) => {
       return respostas["pergunta" + index] === correta;
     });
-    console.log(corretas.length);
     const acertosPorcentagem = (100 / totalPerguntas) * corretas.length;
     setAcertos(acertosPorcentagem);
-    console.log(corretas);
+    updateHistoryAPI({
+      acertos: corretas.length,
+      quiz_id: params.id,
+      total: totalPerguntas,
+    });
   }
   if (resultado) {
     return (
@@ -76,7 +110,8 @@ function Quiz() {
               ) : (
                 <h2 className="resultadoRuim">{acertos}%</h2>
               )}
-              <Link to="/all">Voltar</Link>
+              <p>{erroFetch}</p>
+              {loading ? <Loading /> : <Link to="/all">Voltar</Link>}
             </div>
           </div>
         </main>
@@ -84,7 +119,6 @@ function Quiz() {
     );
   }
   if (pergunta) {
-    // console.log(respostas);
     return (
       <div className="quiz">
         <main>

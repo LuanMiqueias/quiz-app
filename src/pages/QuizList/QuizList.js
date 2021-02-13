@@ -9,15 +9,16 @@ import QuizItem from "../../components/QuizItem/quizItem";
 import Loading from "../../components/Loading/loading";
 import Modal from "../../components/Modal/Modal";
 import { GlobalContext } from "../../pages/GlobalStorage";
-import FormSearch from "../../components/Forms/FormSearch/FormSearch";
+import { Link, useNavigate } from "react-router-dom";
 
 function QuizList() {
   const [perguntas, setPerguntas] = React.useState();
   const [loading, setLoading] = React.useState(true);
+  const navigate = useNavigate();
 
-  const global = React.useContext(GlobalContext);
+  const { dados, auth, logout } = React.useContext(GlobalContext);
 
-  React.useEffect(() => {
+  React.useMemo(() => {
     setLoading(true);
     fetch("https://quizluan.herokuapp.com/all")
       .then((responce) => responce.json())
@@ -50,13 +51,62 @@ function QuizList() {
   return (
     <div className="quizList">
       <Header>
-        <div className="container-right">
+        <div className="container-menu">
+          {/* <FormSearch /> */}
+          <div className="container-buttons">
+            <Link to="/all" className="btn btn-responder-dashboard">
+              Responder
+            </Link>
+            {dados ? (
+              <Modal type="criar">
+                <button className="btn btn-criar-dashboard">
+                  Criar um Quiz
+                </button>
+              </Modal>
+            ) : (
+              <Modal type="login">
+                <button className="btn btn-criar-dashboard">
+                  Criar um Quiz
+                </button>
+              </Modal>
+            )}
+          </div>
+          <div className="container-dadosUser">
+            {dados && auth ? (
+              <Link
+                to="/dashboard"
+                className="btn-account"
+                style={{ background: "#432D4E" }}
+              >
+                {dados.nome}
+              </Link>
+            ) : (
+              ""
+            )}
+
+            {dados && auth ? (
+              <Link
+                to="/"
+                id="btn-logout"
+                onClick={(e) => {
+                  logout(e);
+                  navigate("/");
+                }}
+              >
+                Sair
+              </Link>
+            ) : (
+              <Modal type="login">Login {">"} </Modal>
+            )}
+          </div>
+        </div>
+        {/* <div className="container-right">
           {global.login ? (
             global.dadosUser.nome
           ) : (
             <Modal type="login">Login {">"} </Modal>
           )}
-        </div>
+        </div> */}
       </Header>
       <main>
         <div className="content">

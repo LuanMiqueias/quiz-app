@@ -65,6 +65,23 @@
   padding: 0px 80px;
   padding-bottom: 60px;
 }
+.quizList .btn {
+  width: initial;
+  height: initial;
+  line-height: initial;
+  text-transform: initial;
+  font-size: 0.9rem;
+  padding: 10px 18px;
+  font-size: 1rem !important;
+}
+.btn-responder-dashboard {
+  padding: 10px;
+  background-color: #5fcf5c;
+}
+.btn-criar-dashboard {
+  padding: 10px;
+  background-color: #cf87f1;
+}
 .quizList main > .content section {
   display: flex;
   width: 100%;

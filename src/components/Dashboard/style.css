@@ -69,3 +69,13 @@
 .myHistory-item a {
   background-color: #5fcf5c;
 }
+@media (max-width: 425px) {
+  .myQuiz-item,
+  .myHistory-item {
+    flex-direction: column;
+    gap: 8px;
+  }
+  .dashboard main > .content {
+    padding: 32px 16px;
+  }
+}

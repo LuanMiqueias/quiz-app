@@ -8,7 +8,6 @@ function QuizQuestions({
   respostas,
   onChange,
 }) {
-  // console.log(pergunta);
   let indexAlternativa = 0;
   function letraAlternativa(index) {
     const letraArray = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
