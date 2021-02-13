@@ -8,7 +8,8 @@
 <br/>
 <br/>
 ## No que eu estou trabalhando no momento:
-- [X] Dashboard.
+- [ ] Dashboard.
+- [X] Menu responsivo. 
 - [ ] Scroll infinito na listagem dos quizzes.
 - [ ] Adicionar campo de busca e filtros.
 - [ ] Um ranking para cada quiz.
