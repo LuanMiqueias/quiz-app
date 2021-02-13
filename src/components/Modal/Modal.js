@@ -17,10 +17,43 @@ function Modal({ children, type, titulo, subtitulo, isActive }) {
     nome: "",
   });
 
+  const [modalAtivo, setModalAtivo] = React.useState(false);
+  const [modalTipo, setModalTipo] = React.useState(type);
+  const [loading, setLoading] = React.useState(false);
+  const [erroFetch, setErroFetch] = React.useState(null);
+  const [mounted, setMounted] = React.useState(false);
+  const handleClickModal = React.useCallback(
+    (e) => {
+      e.preventDefault();
+      if (modalAtivo) {
+        if (isActive) {
+          return navigate("/");
+        }
+        const elementContainer = document.querySelector(".container-modal");
+        if (elementContainer) {
+          elementContainer.classList.add("close-modal");
+          setTimeout(() => {
+            elementContainer.classList.remove("close-modal");
+            setModalAtivo(!modalAtivo);
+          }, 200);
+        } else {
+          setModalAtivo(!modalAtivo);
+        }
+        return;
+      }
+      setModalAtivo(!modalAtivo);
+    },
+    [isActive, modalAtivo, navigate]
+  );
+  React.useEffect(() => {
+    setMounted(false);
+    return setMounted(true);
+  }, []);
   function changeInput(e) {
     const value = e.target.value;
     setInputData({ ...inputData, [e.target.id]: value });
   }
+
   React.useEffect(() => {
     if (isActive) {
       setModalAtivo(isActive);
@@ -33,33 +66,15 @@ function Modal({ children, type, titulo, subtitulo, isActive }) {
         });
       });
     });
-  });
+    return () => {
+      elementClose.forEach((item) => {
+        ["click", "touch"].forEach((event) => {
+          item.removeEventListener(event, (e) => handleClickModal(e));
+        });
+      });
+    };
+  }, [setModalAtivo, handleClickModal, isActive]);
 
-  const [modalAtivo, setModalAtivo] = React.useState(false);
-  const [modalTipo, setModalTipo] = React.useState(type);
-  const [loading, setLoading] = React.useState(false);
-  const [erroFetch, setErroFetch] = React.useState(null);
-
-  function handleClickModal(e) {
-    e.preventDefault();
-    if (modalAtivo) {
-      if (isActive) {
-        return navigate("/");
-      }
-      const elementContainer = document.querySelector(".container-modal");
-      if (elementContainer) {
-        elementContainer.classList.add("close-modal");
-        setTimeout(() => {
-          elementContainer.classList.remove("close-modal");
-          setModalAtivo(!modalAtivo);
-        }, 200);
-      } else {
-        setModalAtivo(!modalAtivo);
-      }
-      return;
-    }
-    setModalAtivo(!modalAtivo);
-  }
   async function handleClickFetch(e) {
     e.preventDefault();
     let typeModal = e.target.dataset.typemodal;
@@ -97,7 +112,9 @@ function Modal({ children, type, titulo, subtitulo, isActive }) {
     }
     setLoading(false);
   }
-
+  if (!mounted) {
+    return null;
+  }
   if (!modalAtivo) {
     return (
       <a href="/" onClick={(e) => handleClickModal(e)}>

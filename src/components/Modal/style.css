@@ -26,7 +26,7 @@ button:hover {
   height: 100vh;
   background-color: rgba(0, 0, 0, 0.6);
   z-index: 100;
-  overflow: hidden;
+  overflow: auto;
 }
 .modal {
   max-width: 400px;

@@ -1,6 +1,5 @@
 import React from "react";
 import Loading from "../../components/Loading/loading";
-import { GlobalContext } from "../../pages/GlobalStorage";
 
 function Login(
   {
@@ -14,7 +13,6 @@ function Login(
   },
   ...props
 ) {
-  const { handleLogin } = React.useContext(GlobalContext);
   return (
     <section className="container-modal">
       <div className="div-close-modal close"></div>

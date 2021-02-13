@@ -1,5 +1,6 @@
 import React from "react";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import Loading from "../components/Loading/loading";
 
 import Landing from "./Landing/landing";
 import Quiz from "./Quiz/Quiz";
@@ -9,11 +10,20 @@ import { GlobalContext } from "./GlobalStorage";
 import Modal from "../components/Modal/Modal";
 
 function CustomRoute({ isPrivate, ...rest }) {
-  const { auth, loading } = React.useContext(GlobalContext);
-  console.log(auth);
-  console.log(loading);
-  if (loading) {
-    return <h1>LOADING....</h1>;
+  const { auth, IsAuth, loading: loadingGlobal } = React.useContext(
+    GlobalContext
+  );
+
+  React.useMemo(async () => {
+    await IsAuth();
+  }, [loadingGlobal]);
+
+  if (loadingGlobal) {
+    return (
+      <div className="center-loading">
+        <Loading />
+      </div>
+    );
   }
   if (!auth && isPrivate) {
     return <Navigate to="/login" />;
@@ -22,6 +32,18 @@ function CustomRoute({ isPrivate, ...rest }) {
 }
 
 function Rotas() {
+  const { IsAuth, loading: loadingGlobal } = React.useContext(GlobalContext);
+
+  React.useMemo(async () => {
+    await IsAuth();
+  }, [loadingGlobal]);
+  if (loadingGlobal) {
+    return (
+      <div className="center-loading">
+        <Loading />
+      </div>
+    );
+  }
   return (
     <BrowserRouter>
       <Routes>

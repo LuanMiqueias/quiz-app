@@ -1,6 +1,7 @@
 import React from "react";
 import Loading from "../../components/Loading/loading";
 import seta from "../../assets/icons/iconArrow-left.svg";
+import { GlobalContext } from "../../pages/GlobalStorage";
 function CriarQuiz(
   { onclickForm, setModalTipo, loading, onChange, values, fecharModal },
   ...props
@@ -8,6 +9,7 @@ function CriarQuiz(
   const [indexPergunta, setIndexPergunta] = React.useState(0);
   const [erroFetch, setErroFetch] = React.useState(null);
   const [styleImg, setStyleImg] = React.useState(true);
+  const { setLoading: setLoadingGlobal } = React.useContext(GlobalContext);
   // const [loading, setLoading] = React.useState(false);
   const [inputDados, setInputDados] = React.useState({
     titulo: "",
@@ -49,7 +51,6 @@ function CriarQuiz(
       });
     } else if (type === "inicio") {
       const value = e.target.value;
-      console.log(e.target.id);
       if (e.target.id === "tags") {
         const arrayTags = e.target.value.split(",");
         setInputDados({
@@ -57,7 +58,6 @@ function CriarQuiz(
           [e.target.id]: arrayTags,
         });
         return;
-        // console.log(arrayTags);
       }
       setInputDados({
         ...inputDados,
@@ -67,8 +67,6 @@ function CriarQuiz(
       return;
     }
   }
-  console.log(inputDados);
-  // console.log(inputDados);
   function scrollTop() {
     window.scroll(0, 0);
   }
@@ -77,7 +75,6 @@ function CriarQuiz(
       pergunta: "",
       alternativas: [""],
     };
-    console.log(indexPergunta);
     scrollTop();
     const newIndex = indexPergunta + 1;
     if (newIndex >= 2) {
@@ -87,7 +84,6 @@ function CriarQuiz(
         return dados;
       });
       setIndexPergunta(indexPergunta + 1);
-      console.log(inputDados);
     }
   }
   function criarAlternativa(e) {
@@ -120,7 +116,6 @@ function CriarQuiz(
     } else if (type === "next") {
       let lengthPerguntas = verificaLenghtPergunta();
       if (lengthPerguntas) {
-        console.log("não amigo");
         return;
       }
       setIndexPergunta(indexPergunta + 1);
@@ -128,12 +123,9 @@ function CriarQuiz(
       return;
     }
     setIndexPergunta(indexPergunta + 1);
-    console.log(indexPergunta, type);
   }
   function verificaLenghtPergunta() {
     let lengthPerguntas = Object.keys(inputDados.perguntas).length;
-    console.log("length:", lengthPerguntas);
-    console.log("index", indexPergunta);
     if (lengthPerguntas === indexPergunta) {
       setStyleImg(true);
       return true;
@@ -153,24 +145,29 @@ function CriarQuiz(
       tags: arrayTags,
       perguntas: [inputDados.perguntas],
     };
-    console.log(form);
     try {
-      const responce = await fetch("http://localhost:21037/new-question", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: "bearer " + localStorage.token,
-        },
-        body: JSON.stringify(form),
-      });
+      const responce = await fetch(
+        "https://quizluan.herokuapp.com/new-question",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "bearer " + localStorage.token,
+          },
+          body: JSON.stringify(form),
+        }
+      );
       const json = await responce.json();
       if (!responce.ok) {
         setErroFetch(json.menssage);
         throw Error(json.menssage);
       }
+      if (responce.status === 200) {
+        setLoadingGlobal(true);
+      }
       setErroFetch(null);
     } catch (err) {
-      console.log(err);
+      setErroFetch(err);
     }
     fecharModal(e);
   }
@@ -237,9 +234,9 @@ function CriarQuiz(
               <>
                 <button
                   type="button"
-                  className="close"
+                  onClick={(e) => fecharModal(e)}
                   style={{ background: "#D44766" }}
-                  className="btn-vermelho"
+                  className="btn-vermelho close"
                 >
                   Cancelar
                 </button>
