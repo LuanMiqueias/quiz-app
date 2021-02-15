@@ -10,6 +10,7 @@
 ## No que eu estou trabalhando no momento:
 - [ ] Dashboard.
 - [X] Menu responsivo. 
+- [ ] Exibir ordem das alternatiavas aleatoriamente. 
 - [ ] Scroll infinito na listagem dos quizzes.
 - [ ] Adicionar campo de busca e filtros.
 - [ ] Um ranking para cada quiz.
