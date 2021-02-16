@@ -24,7 +24,23 @@ function CriarQuiz(
     },
   });
   // {...inputDados, [inputDados.pergunta1.alternativas] : "teste"}
-
+  React.useEffect(() => {
+    const elementClose = document.querySelectorAll(".close");
+    elementClose.forEach((item) => {
+      ["click", "touch"].forEach((event) => {
+        item.addEventListener(event, (e) => {
+          fecharModal(e);
+        });
+      });
+    });
+    return () => {
+      elementClose.forEach((item) => {
+        ["click", "touch"].forEach((event) => {
+          item.removeEventListener(event, (e) => fecharModal(e));
+        });
+      });
+    };
+  }, [fecharModal]);
   function onChangeInput(e, type) {
     const value = e.target.value;
     if (type === "pergunta") {

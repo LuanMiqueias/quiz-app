@@ -53,28 +53,23 @@ function Modal({ children, type, titulo, subtitulo, isActive }) {
     const value = e.target.value;
     setInputData({ ...inputData, [e.target.id]: value });
   }
-
-  React.useEffect(() => {
-    if (isActive) {
-      setModalAtivo(isActive);
-    }
-    const elementClose = document.querySelectorAll(".close");
-    elementClose.forEach((item) => {
-      ["click", "touch"].forEach((event) => {
-        item.addEventListener(event, (e) => {
-          handleClickModal(e);
-        });
-      });
-    });
-    return () => {
-      elementClose.forEach((item) => {
-        ["click", "touch"].forEach((event) => {
-          item.removeEventListener(event, (e) => handleClickModal(e));
-        });
-      });
-    };
-  }, [setModalAtivo, handleClickModal, isActive]);
-
+  // React.useEffect(() => {
+  //   const elementClose = document.querySelectorAll(".close");
+  //   elementClose.forEach((item) => {
+  //     ["click", "touch"].forEach((event) => {
+  //       item.addEventListener(event, (e) => {
+  //         handleClickModal(e);
+  //       });
+  //     });
+  //   });
+  //   return () => {
+  //     elementClose.forEach((item) => {
+  //       ["click", "touch"].forEach((event) => {
+  //         item.removeEventListener(event, (e) => handleClickModal(e));
+  //       });
+  //     });
+  //   };
+  // }, []);
   async function handleClickFetch(e) {
     e.preventDefault();
     let typeModal = e.target.dataset.typemodal;
@@ -132,6 +127,9 @@ function Modal({ children, type, titulo, subtitulo, isActive }) {
         setErroFetch={setErroFetch}
         onChange={(e) => changeInput(e)}
         values={inputData}
+        fecharModal={(e) => {
+          handleClickModal(e);
+        }}
       />
     );
   } else if (modalTipo === "cadastrar") {
@@ -144,6 +142,9 @@ function Modal({ children, type, titulo, subtitulo, isActive }) {
         loading={loading}
         onChange={(e) => changeInput(e)}
         values={inputData}
+        fecharModal={(e) => {
+          handleClickModal(e);
+        }}
       />
     );
   } else if (modalTipo === "criar") {
