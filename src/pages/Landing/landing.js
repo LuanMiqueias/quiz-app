@@ -10,8 +10,8 @@ function Landing() {
 
   return (
     <div className="container landing">
-      <Header>
-        <div className="container-link">
+      <Header style={{ boxShadow: "none" }}>
+        <div className="container-menu">
           {dados && auth ? (
             <Link
               to="/dashboard"
@@ -21,7 +21,9 @@ function Landing() {
               {dados.nome}
             </Link>
           ) : (
-            <Modal type="login">Login {">"} </Modal>
+            <Modal type="login" className="btn-login">
+              Login {">"}
+            </Modal>
           )}
         </div>
       </Header>

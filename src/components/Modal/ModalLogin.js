@@ -14,7 +14,7 @@ function Login(
   },
   ...props
 ) {
-  React.useEffect(() => {
+  React.useMemo(() => {
     const elementClose = document.querySelectorAll(".close");
     elementClose.forEach((item) => {
       ["click", "touch"].forEach((event) => {
@@ -30,7 +30,7 @@ function Login(
         });
       });
     };
-  }, [fecharModal]);
+  }, []);
   return (
     <section className="container-modal">
       <div className="div-close-modal close"></div>

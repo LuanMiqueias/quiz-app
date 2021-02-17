@@ -96,7 +96,11 @@ function QuizList() {
                 Sair
               </Link>
             ) : (
-              <Modal type="login">Login {">"} </Modal>
+              <Modal type="login" className="btn-login">
+                {/* <a href="/"  */}
+                Login {">"}
+                {/* </a> */}
+              </Modal>
             )}
           </div>
         </div>

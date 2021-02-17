@@ -7,8 +7,9 @@ import CriarQuiz from "./ModalCriarQuiz";
 
 import { GlobalContext } from "../../pages/GlobalStorage";
 import { useNavigate } from "react-router-dom";
+import Loading from "../Loading/loading";
 
-function Modal({ children, type, titulo, subtitulo, isActive }) {
+function Modal({ children, type, titulo, subtitulo, isActive, ...props }) {
   const { handleLogin } = React.useContext(GlobalContext);
   const navigate = useNavigate();
   const [inputData, setInputData] = React.useState({
@@ -22,6 +23,12 @@ function Modal({ children, type, titulo, subtitulo, isActive }) {
   const [loading, setLoading] = React.useState(false);
   const [erroFetch, setErroFetch] = React.useState(null);
   const [mounted, setMounted] = React.useState(false);
+
+  React.useEffect(() => {
+    setMounted(true);
+    return () => setMounted(false);
+  }, [modalAtivo]);
+
   const handleClickModal = React.useCallback(
     (e) => {
       e.preventDefault();
@@ -45,10 +52,7 @@ function Modal({ children, type, titulo, subtitulo, isActive }) {
     },
     [isActive, modalAtivo, navigate]
   );
-  React.useEffect(() => {
-    setMounted(false);
-    return setMounted(true);
-  }, []);
+
   function changeInput(e) {
     const value = e.target.value;
     setInputData({ ...inputData, [e.target.id]: value });
@@ -70,100 +74,121 @@ function Modal({ children, type, titulo, subtitulo, isActive }) {
   //     });
   //   };
   // }, []);
-  async function handleClickFetch(e) {
-    e.preventDefault();
-    let typeModal = e.target.dataset.typemodal;
-    const form = inputData;
-    setLoading(true);
-    try {
-      const responce = await fetch(
-        "https://quizluan.herokuapp.com/" + typeModal,
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(form),
+  const handleClickFetch = React.useCallback((e) => {
+    (async () => {
+      e.preventDefault();
+      let typeModal = e.target.dataset.typemodal;
+      const form = inputData;
+      setLoading(true);
+      try {
+        const responce = await fetch(
+          "https://quizluan.herokuapp.com/" + typeModal,
+          {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(form),
+          }
+        );
+        const json = await responce.json();
+        if (!responce.ok) {
+          setErroFetch(json.menssage);
+          throw Error(json.menssage);
         }
-      );
-      const json = await responce.json();
-      if (!responce.ok) {
-        setErroFetch(json.menssage);
-        throw Error(json.menssage);
-      }
-      setErroFetch(null);
+        setErroFetch(null);
 
-      if (typeModal === "login") {
-        localStorage.token = json.token;
-        const isAuth = await handleLogin();
-        setLoading(false);
-        if (isAuth) {
-          navigate("/dashboard");
+        if (typeModal === "login") {
+          localStorage.token = json.token;
+          const isAuth = await handleLogin();
+          setMounted(true);
+          setLoading(false);
+          if (isAuth) {
+            navigate("/dashboard");
+          }
         }
+        if (typeModal === "register") {
+          setModalTipo("login");
+        }
+      } catch (err) {
+        console.log(err);
       }
-      if (typeModal === "register") {
-        setModalTipo("login");
-      }
-    } catch (err) {
-      console.log(err);
-    }
-    setLoading(false);
-  }
+      setLoading(false);
+      setMounted(true);
+    })();
+  });
   if (!mounted) {
-    return null;
+    return <Loading />;
   }
   if (!modalAtivo) {
     return (
-      <a href="/" onClick={(e) => handleClickModal(e)}>
+      <a href="/" onClick={(e) => handleClickModal(e)} {...props}>
         {children}
       </a>
     );
   }
   if (modalTipo === "login") {
     return (
-      <Login
-        onclickForm={(e) => handleClickFetch(e)}
-        erroFetch={erroFetch}
-        setModalTipo={setModalTipo}
-        loading={loading}
-        setErroFetch={setErroFetch}
-        onChange={(e) => changeInput(e)}
-        values={inputData}
-        fecharModal={(e) => {
-          handleClickModal(e);
-        }}
-      />
+      <>
+        <a href="/" {...props}>
+          {children}
+        </a>
+        <Login
+          onclickForm={(e) => handleClickFetch(e)}
+          erroFetch={erroFetch}
+          setModalTipo={setModalTipo}
+          loading={loading}
+          setErroFetch={setErroFetch}
+          onChange={(e) => changeInput(e)}
+          values={inputData}
+          fecharModal={(e) => {
+            handleClickModal(e);
+          }}
+          {...props}
+        />
+      </>
     );
   } else if (modalTipo === "cadastrar") {
     return (
-      <Cadastrar
-        onclickForm={(e) => handleClickFetch(e)}
-        erroFetch={erroFetch}
-        setModalTipo={setModalTipo}
-        setErroFetch={setErroFetch}
-        loading={loading}
-        onChange={(e) => changeInput(e)}
-        values={inputData}
-        fecharModal={(e) => {
-          handleClickModal(e);
-        }}
-      />
+      <>
+        <a href="/" {...props}>
+          {children}
+        </a>
+        <Cadastrar
+          onclickForm={(e) => handleClickFetch(e)}
+          erroFetch={erroFetch}
+          setModalTipo={setModalTipo}
+          setErroFetch={setErroFetch}
+          loading={loading}
+          onChange={(e) => changeInput(e)}
+          values={inputData}
+          fecharModal={(e) => {
+            handleClickModal(e);
+          }}
+          {...props}
+        />
+      </>
     );
   } else if (modalTipo === "criar") {
     return (
-      <CriarQuiz
-        // onclickForm={(e) => handleClickFetch(e)}
-        erroFetch={erroFetch}
-        setModalTipo={setModalTipo}
-        setErroFetch={setErroFetch}
-        loading={loading}
-        onChange={(e) => changeInput(e)}
-        values={inputData}
-        fecharModal={(e) => {
-          handleClickModal(e);
-        }}
-      />
+      <>
+        <a href="/" {...props}>
+          {children}
+        </a>
+        <CriarQuiz
+          // onclickForm={(e) => handleClickFetch(e)}
+          erroFetch={erroFetch}
+          setModalTipo={setModalTipo}
+          setErroFetch={setErroFetch}
+          loading={loading}
+          onChange={(e) => changeInput(e)}
+          values={inputData}
+          fecharModal={(e) => {
+            handleClickModal(e);
+          }}
+          {...props}
+        />
+      </>
     );
   }
-  // return modalTipo || tiposModal[type];
 }
 
 export default Modal;
