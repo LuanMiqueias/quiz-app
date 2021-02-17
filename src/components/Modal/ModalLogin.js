@@ -9,10 +9,28 @@ function Login(
     loading,
     setErroFetch,
     onChange,
+    fecharModal,
     values,
   },
   ...props
 ) {
+  React.useMemo(() => {
+    const elementClose = document.querySelectorAll(".close");
+    elementClose.forEach((item) => {
+      ["click", "touch"].forEach((event) => {
+        item.addEventListener(event, (e) => {
+          fecharModal(e);
+        });
+      });
+    });
+    return () => {
+      elementClose.forEach((item) => {
+        ["click", "touch"].forEach((event) => {
+          item.removeEventListener(event, (e) => fecharModal(e));
+        });
+      });
+    };
+  }, []);
   return (
     <section className="container-modal">
       <div className="div-close-modal close"></div>

@@ -39,7 +39,7 @@ button:hover {
   justify-content: flex-start;
   align-items: flex-start;
   flex-direction: column;
-  position: relative;
+  position: absolute;
   z-index: 100;
   transform: scale(0.7);
   animation: showModal 0.3s forwards;
@@ -343,6 +343,8 @@ button:hover {
 @media (max-width: 768px) {
   .container-modal {
     padding: 0;
+    align-items: flex-start;
+    justify-content: flex-start;
   }
   .modal {
     width: 100%;
@@ -350,11 +352,13 @@ button:hover {
     border-radius: 0;
     min-height: 100vh;
     padding: 40px 20px;
-    overflow: hidden;
+  }
+  .modal > h1 {
+    font-size: 1.7rem;
   }
   .close-modal-span {
-    width: 35px;
-    height: 35px;
+    width: 30px;
+    height: 30px;
     top: 8px;
     right: 8px;
   }

@@ -5,9 +5,6 @@
   font-family: poppins;
   font-size: 0.95rem;
 }
-body {
-  overflow-y: scroll;
-}
 a {
   text-decoration: none;
   color: rgb(51, 135, 190);
@@ -60,6 +57,14 @@ a {
 }
 .animation-deleteQuiz {
   opacity: 0.4;
+}
+.btn-login {
+  font-family: poppins;
+  padding: 7px 20px;
+  text-align: center;
+  background: #9ce0e0;
+  border-radius: 20px;
+  color: #fff;
 }
 @keyframes animaShow {
   to {

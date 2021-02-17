@@ -23,6 +23,7 @@ export function GlobalStorage({ children }) {
         });
         if (!responce.ok) {
           setAuth(false);
+          setLoading(false);
           return false;
         }
         const dados = await responce.json();
