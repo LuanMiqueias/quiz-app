@@ -14,7 +14,7 @@ function Login(
   },
   ...props
 ) {
-  React.useMemo(() => {
+  React.useEffect(() => {
     const elementClose = document.querySelectorAll(".close");
     elementClose.forEach((item) => {
       ["click", "touch"].forEach((event) => {
