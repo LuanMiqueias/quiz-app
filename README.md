@@ -7,8 +7,6 @@
 [Visualizar >](http://quizapp.luanmiqueias.com.br)
 ##### Email padrão: luan@luan.com
 ##### Senha padrão: luan
-<br/>
-
 ## No que eu estou trabalhando no momento:
 - [ ] Dashboard.
 - [X] Menu responsivo. 
@@ -16,5 +14,3 @@
 - [ ] Scroll infinito na listagem dos quizzes.
 - [ ] Adicionar campo de busca e filtros.
 - [ ] Um ranking para cada quiz.
-
-
